@@ -1,0 +1,285 @@
+[
+  {
+    "id": "express-free",
+    "mode": "simple",
+    "user": "Express, compte gratuit, choisis le mode. Funk instrumental joyeux pour mes vacances, fais court.",
+    "turns": [
+      {
+        "text": "Le bassiste a déjà mis ses lunettes de soleil. 🎷 Je pars sur Creative Simple.",
+        "fields": {
+          "prompt": "Sunny instrumental funk, buoyant electric bass, crisp drums, playful wah-wah guitar and warm brass hooks. Relaxed holiday joy, catchy from the first beat, complete song with a bright resolved ending. No vocals."
+        }
+      }
+    ],
+    "verdict": "Express ne force pas Earn Credits ; choix délégué respecté ; livraison directe."
+  },
+  {
+    "id": "studio-earn",
+    "mode": "earn",
+    "user": "Studio mais Earn Credits : le casse élégant de Las Vegas, basse devant, cuivres, sans voix, départ immédiat.",
+    "turns": [
+      {
+        "text": "La basse entre par la grande porte. Je garde le casse, les cuivres et le départ immédiat ; les détails de solos passent à la trappe.",
+        "fields": {
+          "prompt": "Instrumental 70s heist jazz-funk. Bold syncopated bass, dry drums, cheeky brass, warm Rhodes. Full groove from beat one, elegant swagger, sharp final hit. No vocals."
+        }
+      }
+    ],
+    "verdict": "Studio reste compatible avec 200 caractères ; compromis expliqué."
+  },
+  {
+    "id": "convert-advanced",
+    "mode": "advanced",
+    "user": "Passe le prompt du casse en Advanced. Toujours instrumental, pas de Lyrics.",
+    "turns": [
+      {
+        "text": "Même équipe, nouveau format : seul le champ Style est nécessaire.",
+        "fields": {
+          "style": "Instrumental 1970s cinematic jazz-funk for an elegant Las Vegas heist. Syncopated electric bass leads, dry drums hold a relaxed pocket, brass plays short call-and-response hooks over warm Rhodes and restrained wah-wah guitar. Full rhythm section from beat one; brief sparse middle, confident return, shared final hit. Warm analog character, playful swagger. No vocals, speech or choir."
+        }
+      }
+    ],
+    "verdict": "Identité conservée ; aucun champ Lyrics utilisé comme débordement."
+  },
+  {
+    "id": "revision-under-speech",
+    "mode": "simple",
+    "user": "Garde la basse et le côté casse mais c'est trop chargé sous ma voix. Allège, ne ralentis pas.",
+    "turns": [
+      {
+        "text": "La basse garde le volant ; les complices parlent moins fort. Je conserve le rythme et espace les cuivres.",
+        "fields": {
+          "prompt": "Instrumental 70s heist jazz-funk under spoken narration. Keep the syncopated electric bass hook and steady original pulse. Dry restrained drums, soft Rhodes and occasional short brass replies in the gaps. Fewer guitar and horn layers, generous rests, no busy solos or abrupt transitions. Full groove from beat one, subtle contrast, clear restrained ending. No generated vocals or speech."
+        }
+      }
+    ],
+    "verdict": "Retour complet sans questionnaire ; voix de narration distinguée de voix générée."
+  },
+  {
+    "id": "two-directions",
+    "mode": "simple",
+    "user": "Même funk de casse en Simple instrumental, propose deux directions puis laisse-moi choisir.",
+    "turns": [
+      {
+        "text": "Deux plans pour la même banque : « Velours et sang-froid », jazz-funk feutré au Rhodes ; « Cuivres insolents », funk plus éclatant aux riffs de trompettes.",
+        "menu": {
+          "question": "Quelle équipe embarque ?",
+          "options": [
+            "Velours et sang-froid",
+            "Cuivres insolents",
+            "Choisis pour moi"
+          ]
+        }
+      },
+      {
+        "user": "Cuivres insolents",
+        "text": "Les trompettes ont manifestement pris les clés du coffre.",
+        "fields": {
+          "prompt": "Instrumental 70s heist funk with bold trumpet and tenor sax riffs, syncopated bass, dry pocket drums, warm Rhodes and restrained wah-wah guitar. Brass and bass trade memorable short hooks. Immediate full groove, sparse bass-led middle, triumphant brass return and precise final ensemble hit. Mischievous, elegant, analog warmth. No vocals."
+        }
+      }
+    ],
+    "verdict": "Un menu unique ; deuxième tour sans nouvelle découverte du mode."
+  },
+  {
+    "id": "surprise-without-anchor",
+    "mode": "simple",
+    "user": "Suno Simple. Surprends-moi, choisis tout, instrumental.",
+    "turns": [
+      {
+        "text": "Dimanche au soleil : le piano a emprunté les chaussures du percussionniste. Je pars sur une soul chaleureuse avec une petite touche latine.",
+        "fields": {
+          "prompt": "Instrumental sunny soul with a gentle Latin percussion twist. Warm electric piano leads a smiling melody over rounded bass, dry relaxed drums, congas and light guitar replies. Easy flowing pulse, memorable hook, airy quieter middle and warm return. Full composition, natural acoustic textures, soft resolved ending. No vocals or choir."
+        }
+      }
+    ],
+    "verdict": "Choix intégral délégué : ancre choisie directement, pas de menu obligatoire."
+  },
+  {
+    "id": "surprise-intensity",
+    "mode": "advanced",
+    "user": "Advanced instrumental, jazz nocturne. Je veux choisir à quel point tu me surprends.",
+    "turns": [
+      {
+        "text": "On garde la nuit et le jazz comme point de départ.",
+        "menu": {
+          "question": "Jusqu'où on pousse la surprise ?",
+          "options": [
+            "Une petite touche inattendue",
+            "Emmène-moi ailleurs",
+            "Carte blanche",
+            "Choisis pour moi"
+          ]
+        }
+      },
+      {
+        "user": "Carte blanche, mais pas de voix",
+        "text": "Le sax rencontre une pulsation électronique discrète, toujours sous les néons de la nuit.",
+        "fields": {
+          "style": "Instrumental nocturnal jazz with a restrained broken-beat electronic pulse. Smoky tenor sax and warm Rhodes share a lyrical hook above deep upright bass, brushed drums and subtle offbeat electronic percussion. Quiet city tension, spacious pauses, acoustic warmth against crisp rhythmic detail. Intimate opening groove, sparse middle, layered return and gentle resolved close. No vocals, speech or choir."
+        }
+      }
+    ],
+    "verdict": "Carte blanche conserve l'ancre et l'exclusion des voix."
+  },
+  {
+    "id": "spanish-complete",
+    "mode": "advanced",
+    "user": "Advanced, instrumental para un paseo al atardecer: soul y bossa nova, guitarra al frente. Responde en español y el prompt también.",
+    "turns": [
+      {
+        "text": "La soul pone la calidez; la bossa nova, el balanceo. La guitarra lleva el paseo sin prisa.",
+        "fields": {
+          "style": "Soul instrumental con balanceo de bossa nova para un paseo al atardecer. Guitarra de nylon al frente, bajo redondo, percusión suave y piano eléctrico cálido. Melodía luminosa y fácil de recordar, ritmo relajado, silencios naturales y arreglos ligeros. Entrada directa y delicada, sección central más íntima, regreso de la melodía y cierre sereno. Sin voces, coros ni palabras habladas."
+        }
+      }
+    ],
+    "verdict": "Langue explicite respectée partout ; pas de jargon imposé."
+  },
+  {
+    "id": "describe-route",
+    "mode": "simple",
+    "user": "Simple, je choisis Décrire avec mes mots.",
+    "turns": [
+      {
+        "text": "Un souvenir, une scène ou une émotion suffisent.",
+        "input": {
+          "label": "Raconte la musique que tu imagines",
+          "example": "Une route au soleil, une mélodie qui donne le sourire."
+        }
+      },
+      {
+        "user": "Une route au soleil, sans chanteur, quelque chose de chaleureux qui bouge doucement",
+        "text": "Les fenêtres s'ouvrent, le piano prend l'air. Je traduis ça en soul lumineuse, au rythme tranquille.",
+        "fields": {
+          "prompt": "Warm instrumental road-trip soul, gentle buoyant pulse, rounded bass, dry relaxed drums, bright electric piano melody and light rhythmic guitar. Sunlit open-road feeling, easy memorable hook, airy arrangement, quiet middle and smiling return. Complete composition with a soft resolved ending. No vocals or choir."
+        }
+      }
+    ],
+    "verdict": "Texte libre seulement après choix ; description interprétée sans exiger de genre."
+  },
+  {
+    "id": "blend-main-secondary",
+    "mode": "earn",
+    "user": "Earn Credits. Mélange funk et reggae, surtout funk, basse devant, sans voix.",
+    "turns": [
+      {
+        "text": "Le funk mène la danse ; le reggae glisse ses contretemps dans la guitare.",
+        "fields": {
+          "prompt": "Instrumental bass-led funk with light reggae offbeat guitar. Dry punchy drums, warm organ, catchy syncopated hook, sunny swagger. Funk stays dominant. Clear ending, no vocals."
+        }
+      }
+    ],
+    "verdict": "Deux genres et équilibre déjà connus : aucune question répétée."
+  },
+  {
+    "id": "advanced-lyrics",
+    "mode": "advanced",
+    "user": "Advanced, une chanson en français sur le dernier métro, soul douce, voix féminine. Écris un court couplet et refrain.",
+    "turns": [
+      {
+        "text": "Le quai se vide ; la mélodie garde une place à côté d'elle. Voici Style et Lyrics, séparément.",
+        "fields": {
+          "style": "Gentle late-night soul song in French, intimate female lead vocal, warm Rhodes, rounded bass, restrained brushed drums and soft guitar. Tender last-train atmosphere, clear memorable chorus melody, conversational verse, subtle lift into the refrain, gentle resolved ending.",
+          "lyrics": "[Couplet]\nLe quai s'endort sous les néons\nJe garde au chaud ton dernier nom\nLes portes ferment sur le bruit\nUn peu de toi traverse la nuit\n\n[Refrain]\nDans le dernier métro\nTon rire suit les rails\nJe rentre un peu moins tôt\nPour que ton écho ne s'en aille"
+        }
+      }
+    ],
+    "verdict": "Deux champs ; langue déduite explicitement ici ; aucune consigne instrumental contradictoire."
+  },
+  {
+    "id": "loop",
+    "mode": "simple",
+    "user": "Simple instrumental, boucle funk tranquille, pas de gros final.",
+    "turns": [
+      {
+        "text": "Le groove garde sa place au bar. Le raccord restera à vérifier sur l'audio généré.",
+        "fields": {
+          "prompt": "Instrumental mellow funk designed for looping. Steady rounded bass riff, dry restrained drums, soft Rhodes chords and light muted guitar. Stable texture and tempo, repeating harmonic cycle, subtle variations without a large build. Opening and closing share compatible harmony, instrumentation and pulse. No fade, final flourish, terminal hit or vocals."
+        }
+      }
+    ],
+    "verdict": "Aucune garantie de boucle parfaite ; pas de conclusion contradictoire."
+  },
+  {
+    "id": "video",
+    "mode": "simple",
+    "user": "Simple instrumental pour une vidéo : ouverture ville la nuit, trajet en voiture, arrivée à la mer. Environ 90 secondes.",
+    "turns": [
+      {
+        "text": "La ville donne l'élan, la route ouvre l'espace, la mer relâche la tension. Les 90 secondes restent une intention de durée.",
+        "fields": {
+          "prompt": "Instrumental cinematic soul for an approximately 90-second night-city drive ending at the sea. Warm electric piano hook and tight bass-and-drum groove establish the city immediately. Open the arrangement with flowing guitar and airy keys for the drive. Brief natural transition, then a spacious luminous return as the coast appears. Gentle resolved ending, clear rhythmic accents for editing, no vocals. Aim for a complete concise musical arc."
+        }
+      }
+    ],
+    "verdict": "Événements traduits en arc flexible, pas de synchronisation garantie."
+  },
+  {
+    "id": "series",
+    "mode": "earn",
+    "user": "Trois titres Earn Credits instrumentaux pour un mini-film : plan, casse, retour. Même signature funk 70s.",
+    "turns": [
+      {
+        "text": "Même bande, trois moments : basse ronde, batterie sèche et Rhodes dans chaque titre.",
+        "prompts": [
+          {
+            "prompt": "Instrumental 70s heist funk: rounded bass, dry drums, warm Rhodes. Quiet planning scene, sparse muted guitar, restrained hook, elegant tension. Complete arc, no vocals."
+          },
+          {
+            "prompt": "Instrumental 70s heist funk: rounded bass, dry drums, warm Rhodes. The heist erupts in sharp brass riffs and tight rhythmic accents. Confident swagger, clear final hit, no vocals."
+          },
+          {
+            "prompt": "Instrumental 70s heist funk: rounded bass, dry drums, warm Rhodes. Calm getaway, lyrical guitar, relaxed groove and warm release of tension. Gentle resolved ending, no vocals."
+          }
+        ]
+      }
+    ],
+    "verdict": "Trois prompts autonomes ; signature répétée, rôle narratif variable."
+  },
+  {
+    "id": "unknown-destination",
+    "mode": "simple",
+    "user": "Fais-moi un funk instrumental joyeux.",
+    "turns": [
+      {
+        "menu": {
+          "question": "Où vas-tu coller ton texte dans Suno ?",
+          "options": [
+            "Earn Credits — texte court (200 caractères)",
+            "Création Simple — un seul texte (3 000 caractères)",
+            "Création Advanced — Style (1 000) et Lyrics (5 000)",
+            "Je ne sais pas — choisis pour moi"
+          ]
+        },
+        "text": "Simple et Advanced sont les deux modes Creative du compte gratuit."
+      },
+      {
+        "user": "Je ne sais pas — choisis pour moi",
+        "text": "Creative Simple fera l'affaire : un seul texte à coller, le sourire inclus.",
+        "fields": {
+          "prompt": "Joyful instrumental funk, rounded syncopated bass, crisp dry drums, playful guitar and warm brass hooks. Immediate danceable groove, bright memorable melody, spacious middle, full-band return and clear final hit. Warm analog character. No vocals."
+        }
+      }
+    ],
+    "verdict": "Une question utile, sans refaire le choix Express/Studio pour un brief déjà fourni."
+  },
+  {
+    "id": "missing-prior-context",
+    "mode": "simple",
+    "user": "Reprends mon prompt d'hier et rends-le plus dansant. (Aucun prompt antérieur disponible.)",
+    "turns": [
+      {
+        "text": "Je n'ai pas le prompt d'hier dans cette conversation.",
+        "menu": {
+          "question": "Comment veux-tu repartir ?",
+          "options": [
+            "Coller mon ancien prompt",
+            "Partir d'une nouvelle idée"
+          ]
+        }
+      }
+    ],
+    "verdict": "Aucune fausse mémoire ; une seule sortie pour retrouver la source."
+  }
+]

@@ -4,7 +4,7 @@ Transformez une idée, une scène ou une envie en prompt pour Suno. Un accompagn
 
 ## Installation
 
-1. Téléchargez [suno-prompt-architect.skill](suno-prompt-architect.skill) (bouton **Download raw file** sur GitHub).
+1. Téléchargez **suno-prompt-architect.skill** depuis la [dernière version publiée](https://github.com/leclerefrederic/suno-architect/releases/latest). Le fichier est aussi disponible [dans le dépôt](suno-prompt-architect.skill) (bouton **Download raw file** sur GitHub).
 2. Dans votre assistant compatible avec l’import de skills, ouvrez la gestion des skills et importez ce fichier.
 3. Activez le skill, puis demandez par exemple : « Crée une musique funk instrumentale pour une vidéo de vacances. »
 
@@ -18,6 +18,10 @@ Si votre assistant accepte uniquement les dossiers de skills, décompressez le f
 - **Studio** : davantage de nuances, d’instruments et de structure.
 - Mélange de styles, description libre et surprises avec une idée de départ.
 - Questions sous forme de menus, une à la fois, avec des mots accessibles.
+- Retouches ciblées, conversion entre modes Suno et deux directions créatives sur demande.
+- Surprises réglables, séries de morceaux et briefs pour vidéo, narration ou boucle.
+
+Découvrez des [exemples avant/après](EXAMPLES.md) et le [compte rendu des essais](tests/EXPERIENCE.md).
 
 Express et Studio définissent l’accompagnement, indépendamment du mode de saisie Suno.
 
@@ -31,10 +35,32 @@ Ces limites correspondent aux spécifications fournies pour cette version. Le sk
 
 ## Contenu du dépôt
 
-- [`skills/suno-prompt-architect/SKILL.md`](skills/suno-prompt-architect/SKILL.md) : source du skill **v1.5.1**.
-- [`suno-prompt-architect.skill`](suno-prompt-architect.skill) : version à importer, contenant exactement la même source.
+- [`ROADMAP.md`](ROADMAP.md) : idées d’évolution et suivi des prochaines améliorations.
+- [`skills/suno-prompt-architect/`](skills/suno-prompt-architect/) : source du skill **v1.6.0**, sa boîte à outils créative et son compteur facultatif.
+- [`suno-prompt-architect.skill`](suno-prompt-architect.skill) : version à importer, contenant exactement ces fichiers.
 - `LICENSE` : licence du dépôt.
 
-Le skill est autonome : aucun script, image, accès à un compte ou dépendance supplémentaire. Les fichiers de configuration du plugin privé ne sont pas nécessaires à cette distribution.
+Le skill fonctionne sans accès à un compte ni installation de bibliothèque. Un compteur Python 3 facultatif permet de vérifier précisément les champs lorsque l’assistant peut exécuter des fichiers. Sans exécution, le skill reste utilisable et conserve une marge sous les limites. Les fichiers de configuration du plugin privé ne sont pas nécessaires à cette distribution.
 
-Après une modification du skill, reconstruisez l’archive ZIP avec le dossier `suno-prompt-architect` à sa racine et conservez l’extension `.skill`.
+## Pour maintenir le projet
+
+Python 3.9 ou plus récent, sans bibliothèque supplémentaire :
+
+```sh
+python3 -m unittest discover -s tests -v
+python3 scripts/build_skill.py
+python3 scripts/build_skill.py --check
+```
+
+La construction est reproductible : des sources identiques donnent une archive identique. Seuls les fichiers du dossier du skill sont inclus ; les tests et documents du dépôt restent hors de l’archive.
+
+Pour vérifier un texte exact (espaces et retours à la ligne inclus) :
+
+```sh
+python3 skills/suno-prompt-architect/scripts/check_fields.py --mode earn --prompt prompt.txt
+python3 skills/suno-prompt-architect/scripts/check_fields.py --mode advanced --style style.txt --lyrics lyrics.txt
+```
+
+En Advanced instrumental, omettez `--lyrics`. Le compteur refuse les champs inadaptés au mode et les dépassements ; il indique les points de code Unicode et les unités UTF-16 et prend le plus grand des deux par prudence, sans prétendre connaître le comptage interne de Suno.
+
+Le dépôt est la source de référence pour les évolutions. Chaque nouvelle version du skill doit être répercutée dans l’archive `.skill` et dans le plugin privé existant, puis vérifiée après publication. Le processus est décrit dans la [roadmap](ROADMAP.md#comment-on-fait-évoluer-le-projet).
