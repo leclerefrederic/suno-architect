@@ -1,6 +1,15 @@
 # Roadmap 🎛️
 
-Des idées pour donner encore plus de personnalité aux morceaux, sans transformer la création musicale en formulaire administratif. Les éléments cochés sont présents dans la v1.6.0 ; les validations qui nécessitent une vraie interface ou de l’audio restent ouvertes. Voir le [compte rendu des essais](tests/EXPERIENCE.md).
+Des idées pour donner encore plus de personnalité aux morceaux, sans transformer la création musicale en formulaire administratif. Les éléments cochés sont présents dans les versions publiées ; les validations qui nécessitent l’interface conversationnelle de chaque assistant ou de l’audio restent ouvertes. Voir le [compte rendu des essais](tests/EXPERIENCE.md).
+
+## Atelier Advanced — v1.7.0
+
+- [x] **Une mini-interface, sans questionnaire.** Ajouter, réordonner et retirer des moments ; régler intensité, longueur relative, instrument du solo et type de fin.
+- [x] **Transposer dans Lyrics.** Générer les balises instrumentales en direct, séparément du Style, sans inventer de paroles chantées.
+- [x] **Un éditeur transportable.** Source incluse dans le `.skill`, version autonome hors ligne et libellés français, anglais et espagnol.
+- [x] **Tester les interactions réelles.** 25 contrôles automatisés dans Chrome, dont réorganisation, copie avec refus de permission, état, clavier et affichage à 320 et 736 px.
+- [ ] **Évaluer les balises à l’écoute.** Comparer la structure demandée au morceau généré, sans garantir l’exécution des mouvements ou drops.
+- [ ] **Intégrer des paroles existantes.** Préserver les couplets et refrains lors d’une réorganisation ; l’éditeur actuel reste consacré à la structure instrumentale.
 
 ## Prochaines améliorations
 

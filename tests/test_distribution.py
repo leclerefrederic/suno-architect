@@ -65,6 +65,13 @@ class FieldTests(unittest.TestCase):
 
 
 class PackageTests(unittest.TestCase):
+    def test_standalone_editor_uses_same_fragment(self):
+        with tempfile.TemporaryDirectory() as folder:
+            target = Path(folder) / "advanced.html"
+            builder.build_interface(target)
+            self.assertIn((builder.SKILL / "assets/advanced-arranger.html").read_text(), target.read_text())
+            self.assertIn('name="viewport"', target.read_text())
+
     def test_reproducible_and_complete(self):
         with tempfile.TemporaryDirectory() as folder:
             first = builder.build(Path(folder) / "first.skill")
@@ -85,6 +92,8 @@ class PackageTests(unittest.TestCase):
         import re
         for path in builder.SKILL.rglob("*.md"):
             for link in re.findall(r"\]\(([^)]+)\)", path.read_text()):
+                if link.startswith("https://"):
+                    continue
                 target = (path.parent / link).resolve()
                 self.assertTrue(target.is_relative_to(builder.SKILL.resolve()), link)
                 self.assertTrue(target.is_file(), link)

@@ -23,6 +23,16 @@ Si votre assistant accepte uniquement les dossiers de skills, décompressez le f
 
 Découvrez des [exemples avant/après](EXAMPLES.md) et le [compte rendu des essais](tests/EXPERIENCE.md).
 
+## Mini-interface Advanced
+
+Un petit éditeur pour construire le déroulé instrumental directement, sans série de questions : ajoutez Intro, Thème, Montée, Drop, Respiration, Solo, Mouvement ou Fin ; réordonnez les blocs ; réglez leur intensité et leur place relative dans le morceau. Le texte Lyrics se construit en direct, séparément du Style.
+
+Téléchargez **advanced-arranger.html** dans la [dernière version publiée](https://github.com/leclerefrederic/suno-architect/releases/latest), puis ouvrez-le dans un navigateur. Il fonctionne hors ligne, sans installation. Le bouton **Copier Lyrics** permet de transférer la structure dans Suno ; si le navigateur refuse la copie, le texte est sélectionné pour une copie manuelle.
+
+L’interface est également incluse dans le `.skill`. Son affichage dans la conversation dépend du moteur interactif de l’assistant : elle ne crée pas un onglet natif permanent dans ChatGPT ou Suno. Les libellés intégrés sont disponibles en français, anglais et espagnol. Dans un navigateur seul, les modifications ne sont pas conservées après rechargement.
+
+Cette première version prépare uniquement des structures instrumentales : elle ne fusionne pas des paroles existantes. Les balises sont des intentions de composition, pas un langage de commandes garanti ; le résultat doit être vérifié à l’écoute.
+
 Express et Studio définissent l’accompagnement, indépendamment du mode de saisie Suno.
 
 | Mode Suno | Limite de saisie |
@@ -36,7 +46,7 @@ Ces limites correspondent aux spécifications fournies pour cette version. Le sk
 ## Contenu du dépôt
 
 - [`ROADMAP.md`](ROADMAP.md) : idées d’évolution et suivi des prochaines améliorations.
-- [`skills/suno-prompt-architect/`](skills/suno-prompt-architect/) : source du skill **v1.6.0**, sa boîte à outils créative et son compteur facultatif.
+- [`skills/suno-prompt-architect/`](skills/suno-prompt-architect/) : source du skill **v1.7.0**, sa boîte à outils créative, son éditeur Advanced et son compteur facultatif.
 - [`suno-prompt-architect.skill`](suno-prompt-architect.skill) : version à importer, contenant exactement ces fichiers.
 - `LICENSE` : licence du dépôt.
 
@@ -51,6 +61,20 @@ python3 -m unittest discover -s tests -v
 python3 scripts/build_skill.py
 python3 scripts/build_skill.py --check
 ```
+
+Pour produire aussi l’éditeur autonome :
+
+```sh
+python3 scripts/build_skill.py --interface-output work/advanced-arranger.html
+```
+
+Les contrôles de l’interface nécessitent Node.js et Chrome, sans bibliothèque à installer :
+
+```sh
+node tests/test_arranger.mjs
+```
+
+Sur un autre emplacement de Chrome, définissez `CHROME_PATH`. Les captures et résultats de test vont dans `work/`, hors du dépôt suivi.
 
 La construction est reproductible : des sources identiques donnent une archive identique. Seuls les fichiers du dossier du skill sont inclus ; les tests et documents du dépôt restent hors de l’archive.
 

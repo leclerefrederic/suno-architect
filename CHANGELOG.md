@@ -1,5 +1,14 @@
 # Versions
 
+## 1.7.0
+
+- Mini-interface Advanced de structure instrumentale : blocs réordonnables, montées, drops, respirations, solos, mouvements et fins.
+- Réglages directs d’intensité, de longueur relative, d’instrument de solo et de type de fin, sans questionnaire conversationnel.
+- Aperçu Lyrics, budget indépendant de 5 000 caractères, copie et solution manuelle si le navigateur refuse le presse-papiers.
+- Trois points de départ ; libellés français, anglais et espagnol ; partage d’état lorsque l’interface hôte le permet.
+- Éditeur autonome hors ligne joint à la version téléchargeable et source incluse dans le `.skill`.
+- 25 contrôles navigateur et contrôles de distribution ; pas de promesse d’exécution exacte des balises par Suno.
+
 ## 1.6.0
 
 - Retouches ciblées et conversion des prompts entre les trois modes Suno en conservant l’identité du morceau.

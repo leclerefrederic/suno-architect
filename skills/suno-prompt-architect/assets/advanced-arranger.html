@@ -1,0 +1,145 @@
+<div id="suno-arranger-ui" lang="fr">
+  <style>
+    #suno-arranger-ui { color-scheme:light dark; --sa-bg:light-dark(#faf9f5,#191c20); --sa-surface:light-dark(#fff,#24282d); --sa-text:light-dark(#242a2d,#f1f2ef); --sa-muted:light-dark(#5e666a,#acb5b9); --sa-line:light-dark(#dfe2de,#3c4348); --sa-accent:light-dark(#245c45,#a6dfbd); --sa-selected:light-dark(#e6f1e8,#263d31); color:var(--sa-text); background:var(--sa-bg); font:14px/1.5 system-ui,sans-serif; border:1px solid var(--sa-line); border-radius:18px; padding:22px; box-sizing:border-box; }
+    #suno-arranger-ui * { box-sizing:border-box; }
+    #suno-arranger-ui [hidden] { display:none; }
+    #suno-arranger-ui h2,#suno-arranger-ui h3,#suno-arranger-ui p { margin:0; }
+    #suno-arranger-ui h2 { font-size:22px; font-weight:600; letter-spacing:-.6px; }
+    #suno-arranger-ui h3 { font-size:14px; font-weight:600; }
+    #suno-arranger-ui .sa-muted { color:var(--sa-muted); font-size:12px; }
+    #suno-arranger-ui .sa-top,#suno-arranger-ui .sa-row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    #suno-arranger-ui .sa-top { justify-content:space-between; padding-right:70px; }
+    #suno-arranger-ui .sa-kicker { font-size:11px; text-transform:uppercase; letter-spacing:1.6px; color:var(--sa-accent); margin-bottom:5px; }
+    #suno-arranger-ui .sa-section { margin-top:22px; }
+    #suno-arranger-ui button,#suno-arranger-ui select { font:inherit; color:var(--sa-text); background:var(--sa-surface); border:1px solid var(--sa-line); border-radius:9px; min-height:36px; padding:7px 11px; }
+    #suno-arranger-ui button:hover:not(:disabled) { border-color:var(--sa-accent); }
+    #suno-arranger-ui button:disabled { opacity:.45; }
+    #suno-arranger-ui button.sa-primary { background:var(--sa-text); color:var(--sa-bg); border-color:var(--sa-text); }
+    #suno-arranger-ui .sa-palette { display:flex; gap:7px; flex-wrap:wrap; margin-top:9px; }
+    #suno-arranger-ui .sa-palette button { border-style:dashed; }
+    #suno-arranger-ui .sa-sequence { list-style:none; display:grid; grid-template-columns:repeat(auto-fit,minmax(95px,1fr)); gap:9px; padding:0; margin:10px 0 0; }
+    #suno-arranger-ui .sa-block { min-width:0; padding:10px; border:1px solid var(--sa-line); border-radius:11px; background:var(--sa-surface); }
+    #suno-arranger-ui .sa-block[data-selected=true] { background:var(--sa-selected); border-color:var(--sa-accent); }
+    #suno-arranger-ui .sa-pick { border:0; background:transparent; padding:0; display:block; width:100%; text-align:left; }
+    #suno-arranger-ui .sa-pick strong { display:block; font-weight:600; }
+    #suno-arranger-ui .sa-number { color:var(--sa-muted); font-size:11px; font-variant-numeric:tabular-nums; }
+    #suno-arranger-ui .sa-energy { display:flex; gap:3px; align-items:flex-end; height:24px; margin:10px 0; }
+    #suno-arranger-ui .sa-energy span { background:var(--sa-accent); width:9px; border-radius:2px; }
+    #suno-arranger-ui .sa-energy span[data-off=true] { opacity:.15; }
+    #suno-arranger-ui .sa-actions { display:flex; gap:4px; }
+    #suno-arranger-ui .sa-actions button { flex:1; min-width:0; padding:3px; min-height:30px; font-size:13px; }
+    #suno-arranger-ui .sa-editor { margin-top:12px; padding:13px 0; border-top:1px solid var(--sa-line); border-bottom:1px solid var(--sa-line); display:flex; gap:18px; flex-wrap:wrap; align-items:center; }
+    #suno-arranger-ui .sa-editor label { display:flex; flex:1 1 140px; gap:7px; flex-direction:column; font-size:12px; }
+    #suno-arranger-ui input[type=range] { accent-color:var(--sa-accent); min-width:0; width:100%; }
+    #suno-arranger-ui textarea { width:100%; min-height:190px; resize:vertical; margin-top:9px; border:1px solid var(--sa-line); border-radius:11px; background:var(--sa-surface); color:var(--sa-text); padding:13px; font:12px/1.7 ui-monospace,SFMono-Regular,monospace; }
+    #suno-arranger-ui .sa-output-head { display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap; }
+    #suno-arranger-ui .sa-footer { display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin-top:10px; }
+    #suno-arranger-ui [role=alert] { color:light-dark(#a22a2a,#ffb7b7); }
+    #suno-arranger-ui .sa-status { font-size:12px; color:var(--sa-accent); }
+    @media(max-width:480px) { #suno-arranger-ui { padding:15px; } #suno-arranger-ui .sa-top { padding-right:0; } #suno-arranger-ui h2 { font-size:20px; } #suno-arranger-ui .sa-sequence { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media(pointer:coarse) { #suno-arranger-ui button,#suno-arranger-ui select,#suno-arranger-ui .sa-actions button { min-height:44px; } }
+  </style>
+  <header class="sa-top">
+    <div><div class="sa-kicker">Suno Prompt Architect · Advanced</div><h2 data-i18n="title">Le plan du morceau</h2></div>
+    <select id="sa-language" aria-label="Langue / Language"><option value="fr">Français</option><option value="en">English</option><option value="es">Español</option></select>
+  </header>
+  <div class="sa-section sa-row"><label for="sa-preset" data-i18n="preset">Point de départ</label><select id="sa-preset"></select><button type="button" id="sa-load" class="cursor-interaction" data-i18n="load">Appliquer</button></div>
+  <section class="sa-section"><h3 data-i18n="add">Ajouter un moment</h3><div id="sa-palette" class="sa-palette"></div></section>
+  <section class="sa-section" aria-labelledby="sa-order-title"><div class="sa-output-head"><h3 id="sa-order-title" data-i18n="sequence">Le déroulé</h3><span class="sa-muted" id="sa-total"></span></div><ol id="sa-sequence" class="sa-sequence"></ol><div id="sa-editor" class="sa-editor"></div></section>
+  <section class="sa-section"><div class="sa-output-head"><h3 data-i18n="output">Structure instrumentale · Lyrics</h3><span class="sa-muted" id="sa-count" aria-live="polite"></span></div><textarea id="sa-output" readonly aria-label="Lyrics" spellcheck="false"></textarea><p id="sa-error" role="alert"></p><div class="sa-footer"><button type="button" id="sa-copy" class="sa-primary cursor-interaction" data-i18n="copy">Copier Lyrics</button><span id="sa-status" class="sa-status" role="status" aria-live="polite"></span></div><p class="sa-muted" data-i18n="note" style="margin-top:10px">Des intentions de structure, sans paroles chantées ni timing garanti. Le champ Style reste séparé.</p></section>
+  <script>
+  (() => {
+    const root = document.getElementById('suno-arranger-ui');
+    const TYPES = ['intro','theme','build','drop','break','solo','movement','outro'];
+    const TAGS = {intro:'Intro',theme:'Instrumental',build:'Build',drop:'Drop',break:'Breakdown',solo:'Solo',movement:'Interlude',outro:'Outro'};
+    const COPY = {
+      fr:{title:'Le plan du morceau',preset:'Point de départ',load:'Appliquer',add:'Ajouter un moment',sequence:'Le déroulé',output:'Structure instrumentale · Lyrics',copy:'Copier Lyrics',note:'Des intentions de structure, sans paroles chantées ni timing garanti. Le champ Style reste séparé.',types:['Intro','Thème','Montée','Drop','Respiration','Solo','Mouvement','Fin'],presets:['Groove & contrastes','Montée en puissance','Voyage en trois mouvements'],energy:'Intensité',length:'Place dans le morceau',lead:'Instrument du solo',lengths:['Court','Normal','Développé'],leads:['Basse','Guitare','Piano','Saxophone','Synthé','Batterie'],moveUp:'Avancer',moveDown:'Reculer',remove:'Supprimer',selected:'Réglages',copied:'Lyrics copiés.',manual:'Texte sélectionné : utilisez Copier ou Ctrl/Cmd+C.',empty:'Ajoutez un premier moment.',limit:'16 moments maximum.',invalid:'Le texte dépasse 5 000 caractères.',total:'moments',end:'Type de fin',ends:['Conclusion nette','Fin douce','Retour en boucle'],replaced:'Structure appliquée.',edited:'Structure mise à jour.'},
+      en:{title:'Map out your track',preset:'Starting point',load:'Apply',add:'Add a moment',sequence:'The arrangement',output:'Instrumental structure · Lyrics',copy:'Copy Lyrics',note:'Structure cues, without sung words or guaranteed timing. Style stays separate.',types:['Intro','Theme','Build','Drop','Breather','Solo','Movement','Ending'],presets:['Groove & contrast','Rising energy','Three-movement journey'],energy:'Intensity',length:'Space in the track',lead:'Solo instrument',lengths:['Short','Regular','Extended'],leads:['Bass','Guitar','Piano','Saxophone','Synth','Drums'],moveUp:'Move earlier',moveDown:'Move later',remove:'Remove',selected:'Settings',copied:'Lyrics copied.',manual:'Text selected: use Copy or Ctrl/Cmd+C.',empty:'Add your first moment.',limit:'Maximum 16 moments.',invalid:'Text exceeds 5,000 characters.',total:'moments',end:'Ending type',ends:['Clear resolution','Soft close','Loop back'],replaced:'Arrangement applied.',edited:'Arrangement updated.'},
+      es:{title:'El mapa de tu tema',preset:'Punto de partida',load:'Aplicar',add:'Añadir un momento',sequence:'La estructura',output:'Estructura instrumental · Lyrics',copy:'Copiar Lyrics',note:'Indicaciones de estructura, sin letra cantada ni tiempos garantizados. Style queda separado.',types:['Intro','Tema','Subida','Drop','Respiro','Solo','Movimiento','Final'],presets:['Ritmo y contrastes','Energía en aumento','Viaje en tres movimientos'],energy:'Intensidad',length:'Espacio en el tema',lead:'Instrumento del solo',lengths:['Corto','Normal','Amplio'],leads:['Bajo','Guitarra','Piano','Saxofón','Sinte','Batería'],moveUp:'Adelantar',moveDown:'Retrasar',remove:'Eliminar',selected:'Ajustes',copied:'Lyrics copiados.',manual:'Texto seleccionado: usa Copiar o Ctrl/Cmd+C.',empty:'Añade el primer momento.',limit:'Máximo 16 momentos.',invalid:'El texto supera los 5 000 caracteres.',total:'momentos',end:'Tipo de final',ends:['Cierre definido','Final suave','Volver al inicio'],replaced:'Estructura aplicada.',edited:'Estructura actualizada.'}
+    };
+    const LEADS = ['bass','guitar','piano','saxophone','synth','drums'];
+    const PRESETS = [ ['intro','theme','break','solo','theme','outro'],['intro','build','drop','break','build','drop','outro'],['intro','movement','build','movement','movement','outro'] ];
+    const el = id => root.querySelector('#sa-'+id);
+    const makeBlock = (type,id) => ({id,type,energy:({intro:2,theme:3,build:4,drop:5,break:1,solo:3,movement:3,outro:2})[type],length:'regular',lead:'bass',ending:'resolve'});
+    let uid=0, selected=0;
+    const defaultState = () => ({schema:1,locale:COPY[root.dataset.locale]?root.dataset.locale:'fr',blocks:PRESETS[0].map(t=>makeBlock(t,++uid))});
+    let state=defaultState();
+    const valid = value => value && value.schema===1 && COPY[value.locale] && Array.isArray(value.blocks) && value.blocks.length<=16 && value.blocks.every(b=>b && TYPES.includes(b.type) && Number.isInteger(b.energy) && b.energy>=1 && b.energy<=5 && ['short','regular','extended'].includes(b.length) && LEADS.includes(b.lead) && ['resolve','soft','loop'].includes(b.ending));
+    const restore = data => {
+      const value=data?.modelContent?.arranger;
+      if(!valid(value))return;
+      state=JSON.parse(JSON.stringify(value)); state.blocks.forEach(b=>b.id=++uid);selected=state.blocks[0]?.id||0;
+    };
+    try { restore(window.openai?.widgetState); } catch {}
+    selected=state.blocks[0]?.id||0;
+    function compile(blocks) {
+      const energy=['','very sparse, restrained energy','gentle energy','steady medium energy','strong rising energy','full high energy'];
+      return '[Instrumental]\n\n'+blocks.map(b=>{
+        let tag=TAGS[b.type];
+        if(b.type==='solo')tag= b.lead==='drums'?'Drum Solo':b.lead[0].toUpperCase()+b.lead.slice(1)+' Solo';
+        const parts=[energy[b.energy],({short:'brief section',regular:'balanced section',extended:'extended section'})[b.length]];
+        if(b.type==='intro')parts.push('establish the instrumental groove');
+        if(b.type==='build')parts.push('gradually add layers and tension');
+        if(b.type==='drop')parts.push('full rhythm section returns together');
+        if(b.type==='break')parts.push('strip back the arrangement, leave space');
+        if(b.type==='movement')parts.push('contrasting instrumental movement, preserve the main motif');
+        if(b.type==='outro')parts.push(({resolve:'resolve with a clear final phrase',soft:'gentle resolved close',loop:'return to the opening harmony and pulse, no fade or final hit'})[b.ending]);
+        return '['+tag+': '+parts.join(', ')+']';
+      }).join('\n\n');
+    }
+    function save() {
+      const payload={modelContent:{arranger:state,lyrics:compile(state.blocks)},privateContent:null};
+      try { const pending=window.openai?.setWidgetState?.(payload); pending?.catch?.(()=>{}); } catch {}
+    }
+    const text = () => COPY[state.locale];
+    function message(key) {el('status').textContent=text()[key]||'';}
+    function selectOptions(select,values,labels,current) {
+      values.forEach((value,i)=>{const option=document.createElement('option');option.value=value;option.textContent=labels[i];select.append(option);});select.value=current;
+    }
+    function control(label,values,labels,current,change) {
+      const wrapper=document.createElement('label');wrapper.textContent=label;const select=document.createElement('select');select.dataset.focus=label;selectOptions(select,values,labels,current);select.onchange=()=>change(select.value);wrapper.append(select);return wrapper;
+    }
+    function change(block,key,value) {block[key]=value;render();save();message('edited');}
+    function render() {
+      const activeKey=root.contains(document.activeElement)?document.activeElement.dataset.focus:null;
+      const t=text();root.lang=state.locale;el('language').value=state.locale;
+      root.querySelectorAll('[data-i18n]').forEach(n=>n.textContent=t[n.dataset.i18n]);
+      const presetValue=el('preset').value||'0';el('preset').replaceChildren();selectOptions(el('preset'),['0','1','2'],t.presets,presetValue);
+      el('palette').replaceChildren();TYPES.forEach((type,i)=>{
+        const button=document.createElement('button');button.type='button';button.dataset.focus='add-'+type;button.className='cursor-interaction';button.textContent='+ '+t.types[i];button.disabled=state.blocks.length>=16;
+        button.onclick=()=>{const b=makeBlock(type,++uid);state.blocks.push(b);selected=b.id;render();save();message('edited');};el('palette').append(button);
+      });
+      el('sequence').replaceChildren();state.blocks.forEach((block,index)=>{
+        const item=document.createElement('li');item.className='sa-block';item.dataset.selected=block.id===selected;
+        const pick=document.createElement('button');pick.type='button';pick.dataset.focus='pick-'+block.id;pick.className='sa-pick cursor-interaction';pick.setAttribute('aria-pressed',String(block.id===selected));
+        const number=document.createElement('span');number.className='sa-number';number.textContent=String(index+1).padStart(2,'0');
+        const name=document.createElement('strong');name.textContent=t.types[TYPES.indexOf(block.type)];pick.append(number,name);pick.onclick=()=>{selected=block.id;render();};
+        const bars=document.createElement('div');bars.className='sa-energy';bars.setAttribute('aria-label',t.energy+' '+block.energy+'/5');
+        for(let n=1;n<=5;n++){const bar=document.createElement('span');bar.style.height=(5+n*3)+'px';bar.dataset.off=n>block.energy;bars.append(bar);}
+        const actions=document.createElement('div');actions.className='sa-actions';
+        [['↑',t.moveUp,index===0,()=>{[state.blocks[index-1],state.blocks[index]]=[state.blocks[index],state.blocks[index-1]];}],['↓',t.moveDown,index===state.blocks.length-1,()=>{[state.blocks[index],state.blocks[index+1]]=[state.blocks[index+1],state.blocks[index]];}],['×',t.remove,false,()=>{state.blocks.splice(index,1);if(selected===block.id)selected=state.blocks[Math.min(index,state.blocks.length-1)]?.id||0;}]].forEach(([icon,label,disabled,act])=>{
+          const button=document.createElement('button');button.type='button';button.dataset.focus='action-'+block.id+'-'+icon;button.className='cursor-interaction';button.textContent=icon;button.disabled=disabled;button.setAttribute('aria-label',label+' '+(index+1)+' · '+name.textContent);button.onclick=()=>{act();render();save();message('edited');};actions.append(button);
+        });
+        item.append(pick,bars,actions);el('sequence').append(item);
+      });
+      el('total').textContent=state.blocks.length+' / 16 '+t.total;
+      const block=state.blocks.find(b=>b.id===selected);el('editor').replaceChildren();el('editor').hidden=!block;
+      if(block){
+        el('editor').setAttribute('aria-label',t.selected+' · '+t.types[TYPES.indexOf(block.type)]);
+        const label=document.createElement('label');label.textContent=t.energy+' · '+block.energy+'/5';const range=document.createElement('input');range.dataset.focus='energy';range.type='range';range.min='1';range.max='5';range.step='1';range.value=block.energy;range.oninput=()=>{block.energy=Number(range.value);label.firstChild.textContent=t.energy+' · '+block.energy+'/5';el('output').value=compile(state.blocks);updateCount();};range.onchange=()=>{render();save();message('edited');};label.append(range);el('editor').append(label);
+        el('editor').append(control(t.length,['short','regular','extended'],t.lengths,block.length,v=>change(block,'length',v)));
+        if(block.type==='solo')el('editor').append(control(t.lead,LEADS,t.leads,block.lead,v=>change(block,'lead',v)));
+        if(block.type==='outro')el('editor').append(control(t.end,['resolve','soft','loop'],t.ends,block.ending,v=>change(block,'ending',v)));
+      }
+      el('output').value=state.blocks.length?compile(state.blocks):'';el('output').rows=7;el('output').scrollTop=0;updateCount();
+      if(activeKey){const target=[...root.querySelectorAll('[data-focus]')].find(n=>n.dataset.focus===activeKey&&!n.disabled)||root.querySelector('.sa-pick[aria-pressed=true]');target?.focus({preventScroll:true});}
+    }
+    function updateCount(){const output=el('output').value;const count=Math.max(output.length,Array.from(output).length);el('count').textContent=count.toLocaleString(state.locale)+' / 5 000';el('copy').disabled=!output||count>5000;el('error').textContent=count>5000?text().invalid:(!output?text().empty:'');}
+    el('language').onchange=()=>{state.locale=el('language').value;render();save();message('edited');};
+    el('load').onclick=()=>{state.blocks=PRESETS[Number(el('preset').value)].map(t=>makeBlock(t,++uid));selected=state.blocks[0].id;render();save();message('replaced');};
+    el('copy').onclick=async()=>{try{if(!navigator.clipboard?.writeText)throw new Error('Clipboard unavailable');await navigator.clipboard.writeText(el('output').value);message('copied');}catch{el('output').focus();el('output').select();message('manual');}};
+    window.addEventListener('openai:set_globals',event=>{if(event.detail?.globals?.widgetState){restore(event.detail.globals.widgetState);render();}});
+    render();
+  })();
+  </script>
+</div>

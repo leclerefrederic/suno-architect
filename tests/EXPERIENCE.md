@@ -1,4 +1,29 @@
-# Essais de la v1.6.0 — 8 novembre 2026
+# Essais — 8 novembre 2026
+
+## v1.7.0 — mini-interface Advanced
+
+L’éditeur a été exécuté dans un vrai Chrome sans fenêtre, sur un profil temporaire, avec ses interactions locales. Le script reproductible est [test_arranger.mjs](test_arranger.mjs) ; il utilise uniquement les API intégrées de Node.js et le protocole de contrôle de Chrome.
+
+**25 contrôles réussis** :
+
+- Affichage initial et instructions générées uniquement entre crochets.
+- Conservation du focus lors du choix d’une section.
+- Ajout, déplacement dans les deux sens et suppression de blocs, avec effet vérifié dans Lyrics.
+- Instrument du solo, intensité, longueur relative et fin en boucle.
+- Traductions espagnole et anglaise, changement de point de départ.
+- Plafond de 16 moments et budget Lyrics sur la structure maximale testée.
+- Rejet d’un état invalide, reprise d’un état valide et sortie d’un état vide.
+- Transmission du texte exact à l’API de copie et sélection manuelle après refus simulé du presse-papiers.
+- Transmission de la structure et du texte courant à une API hôte simulée.
+- Absence de débordement horizontal à 320 et 736 px ; captures inspectées.
+
+**10 tests Python de distribution et de champs passent également**, dont la vérification que l’éditeur autonome contient le même fragment que le `.skill`.
+
+La copie a été vérifiée avec une API de presse-papiers simulée dans le vrai navigateur ; la livraison de l’état au modèle a également été simulée. Les permissions réelles de chaque assistant et son comportement d’import restent à vérifier. Aucune génération Suno ni écoute n’a été réalisée. Les sources officielles consultées sont précisées dans la [référence de l’éditeur](../skills/suno-prompt-architect/references/advanced-interface.md) ; elles ne certifient pas toutes les balises proposées.
+
+Mon jugement : la manipulation directe permet de travailler la structure sans multiplier les tours de conversation. Les réglages d’une seule section restent visibles à la fois ; le compteur et le texte exporté rendent le résultat vérifiable. La fusion avec des paroles existantes reste volontairement hors de cette première version.
+
+## v1.6.0 — scénarios conversationnels
 
 ## Ce qui a réellement été fait
 

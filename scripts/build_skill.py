@@ -57,13 +57,23 @@ def verify(output, source=SKILL):
                 raise ValueError(f"Archive content differs: {name}")
 
 
+def build_interface(output, source=SKILL):
+    fragment = (source / "assets" / "advanced-arranger.html").read_text(encoding="utf-8")
+    header = '<!doctype html>\n<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Suno Prompt Architect — Advanced</title></head><body style="margin:16px auto;max-width:900px;padding:0 8px">\n'
+    Path(output).parent.mkdir(parents=True, exist_ok=True)
+    Path(output).write_text(header + fragment + '\n</body></html>\n', encoding="utf-8")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=ROOT / "suno-prompt-architect.skill")
     parser.add_argument("--check", action="store_true", help="Verify existing archive without rebuilding")
+    parser.add_argument("--interface-output", type=Path, help="Also create a standalone Advanced editor")
     args = parser.parse_args()
     if args.check:
         verify(args.output)
     else:
         build(args.output)
+    if args.interface_output:
+        build_interface(args.interface_output)
     print(f"Verified Suno Prompt Architect {version()}: {args.output}")
