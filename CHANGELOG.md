@@ -1,5 +1,11 @@
 # Versions
 
+## 1.11.0
+
+- Retrait de la mini-app statique, de son code et des outils de publication associés.
+- Suppression des redirections vers l’app et retour à une expérience Advanced menée par l’IA : propositions musicales et génération directe des deux champs.
+- Conservation du parcours court, des trois modes Suno, du ton espiègle et des questions utiles en menus.
+
 ## 1.10.0
 
 - Mini-app privée hébergée sur Sites, construite depuis la même source que le skill et l’éditeur autonome.

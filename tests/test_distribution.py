@@ -65,20 +65,6 @@ class FieldTests(unittest.TestCase):
 
 
 class PackageTests(unittest.TestCase):
-    def test_site_build_uses_same_source_and_identity(self):
-        with tempfile.TemporaryDirectory() as folder:
-            run = subprocess.run([sys.executable, str(ROOT / "scripts/build_site.py"), "--output", folder], capture_output=True, text=True)
-            self.assertEqual(run.returncode, 0, run.stderr)
-            self.assertEqual(json.loads((Path(folder) / ".openai/hosting.json").read_text()), json.loads((ROOT / ".openai/hosting.json").read_text()))
-            self.assertIn((builder.SKILL / "assets/advanced-arranger.html").read_text(), (Path(folder) / "dist/index.html").read_text())
-
-    def test_standalone_editor_uses_same_fragment(self):
-        with tempfile.TemporaryDirectory() as folder:
-            target = Path(folder) / "advanced.html"
-            builder.build_interface(target)
-            self.assertIn((builder.SKILL / "assets/advanced-arranger.html").read_text(), target.read_text())
-            self.assertIn('name="viewport"', target.read_text())
-
     def test_reproducible_and_complete(self):
         with tempfile.TemporaryDirectory() as folder:
             first = builder.build(Path(folder) / "first.skill")

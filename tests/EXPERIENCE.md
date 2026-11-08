@@ -1,5 +1,9 @@
 # Essais — 8 novembre 2026
 
+## v1.11.0 — retour au skill conversationnel
+
+La mini-app et ses contrôles navigateur ont été retirés. Les résultats des versions précédentes ci-dessous sont historiques ; ils ne décrivent plus une interface distribuée. Les 9 contrôles de champs et de distribution restent applicables. Aucun test de génération audio n’est revendiqué.
+
 ## v1.10.0 — mini-app Sites et entrée courte
 
 **57 contrôles navigateur et 11 tests Python.** Le nouveau contrôle vérifie que les deux champs sont visibles dès l’entrée et que la structure est repliée. La préparation statique vérifie la même source d’interface et le même identifiant de Site que le dépôt de référence. L’aperçu HTTP local répond avec succès et la suite navigateur peut le cibler avec `ARRANGER_URL`.
@@ -22,7 +26,7 @@ Les copies sont vérifiées avec une API simulée dans Chrome. Les captures à 3
 
 ## v1.7.0 — mini-interface Advanced
 
-L’éditeur a été exécuté dans un vrai Chrome sans fenêtre, sur un profil temporaire, avec ses interactions locales. Le script reproductible est [test_arranger.mjs](test_arranger.mjs) ; il utilise uniquement les API intégrées de Node.js et le protocole de contrôle de Chrome.
+L’éditeur a été exécuté dans un vrai Chrome sans fenêtre, sur un profil temporaire, avec ses interactions locales. Le script reproductible est `test_arranger.mjs` (retiré en v1.11.0) ; il utilise uniquement les API intégrées de Node.js et le protocole de contrôle de Chrome.
 
 **25 contrôles réussis** :
 
@@ -39,7 +43,7 @@ L’éditeur a été exécuté dans un vrai Chrome sans fenêtre, sur un profil 
 
 **10 tests Python de distribution et de champs passent également**, dont la vérification que l’éditeur autonome contient le même fragment que le `.skill`.
 
-La copie a été vérifiée avec une API de presse-papiers simulée dans le vrai navigateur ; la livraison de l’état au modèle a également été simulée. Les permissions réelles de chaque assistant et son comportement d’import restent à vérifier. Aucune génération Suno ni écoute n’a été réalisée. Les sources officielles consultées sont précisées dans la [référence de l’éditeur](../skills/suno-prompt-architect/references/advanced-interface.md) ; elles ne certifient pas toutes les balises proposées.
+La copie a été vérifiée avec une API de presse-papiers simulée dans le vrai navigateur ; la livraison de l’état au modèle a également été simulée. Les permissions réelles de chaque assistant et son comportement d’import restent à vérifier. Aucune génération Suno ni écoute n’a été réalisée. Les sources officielles consultées sont précisées dans la référence de l’éditeur (retirée en v1.11.0) ; elles ne certifient pas toutes les balises proposées.
 
 Mon jugement : la manipulation directe permet de travailler la structure sans multiplier les tours de conversation. Les réglages d’une seule section restent visibles à la fois ; le compteur et le texte exporté rendent le résultat vérifiable. La fusion avec des paroles existantes reste volontairement hors de cette première version.
 

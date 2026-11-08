@@ -2,20 +2,14 @@
 
 Des idées pour donner encore plus de personnalité aux morceaux, sans transformer la création musicale en formulaire administratif. Les éléments cochés sont présents dans les versions publiées ; les validations qui nécessitent l’interface conversationnelle de chaque assistant ou de l’audio restent ouvertes. Voir le [compte rendu des essais](tests/EXPERIENCE.md).
 
-## Atelier Advanced — v1.7.0
+## Cap retenu — v1.11.0
 
-- [x] **Mini-app hébergée et entrée courte — v1.10.0.** Deux blocs visibles dès l’ouverture, aucun questionnaire préalable, réglages repliés et hébergement privé sur Sites depuis la même source.
-- [x] **Description composable — v1.9.0.** Style, ambiance, texture, rythme et instruments ; application explicite avec annulation.
-- [x] **Projets et versions — v1.9.0.** Enregistrement local, duplication, comparaison avec une sauvegarde et export/import portable.
-- [x] **Repérer des contradictions — v1.9.0.** Indications non bloquantes sur les voix, boucles et fins ; elles restent des heuristiques.
-- [ ] **Courbe d’énergie manipulable.** Déplacer les points d’une courbe pour ajuster les sections, en complément des réglages actuels.
-- [x] **Les deux blocs Suno — v1.8.0.** Lyrics et Description · Styles, compteurs 5 000 / 1 000, copies indépendantes et description préservée lors du travail sur la structure.
-- [x] **Une mini-interface, sans questionnaire.** Ajouter, réordonner et retirer des moments ; régler intensité, longueur relative, instrument du solo et type de fin.
-- [x] **Transposer dans Lyrics.** Générer les balises instrumentales en direct, séparément du Style, sans inventer de paroles chantées.
-- [x] **Un éditeur transportable.** Source incluse dans le `.skill`, version autonome hors ligne et libellés français, anglais et espagnol.
-- [x] **Tester les interactions réelles.** 25 contrôles automatisés dans Chrome, dont réorganisation, copie avec refus de permission, état, clavier et affichage à 320 et 736 px.
-- [ ] **Évaluer les balises à l’écoute.** Comparer la structure demandée au morceau généré, sans garantir l’exécution des mouvements ou drops.
-- [ ] **Intégrer des paroles existantes.** Préserver les couplets et refrains lors d’une réorganisation ; l’éditeur actuel reste consacré à la structure instrumentale.
+- [x] Retirer la mini-app statique et ses redirections : elle n’apportait pas l’interprétation ni la force de proposition de l’IA.
+- [x] Garder Advanced dans la conversation, avec génération directe de Description / Styles et Lyrics selon le brief.
+- [ ] Évaluer à l’écoute les structures instrumentales proposées par l’IA.
+- [ ] Affiner les deux champs sans perdre l’identité du morceau, à partir de retours sur les générations réelles.
+
+L’ancien atelier visuel, son hébergement et ses projets locaux sont abandonnés. Les versions précédentes restent dans l’historique Git, sans être la direction actuelle du produit.
 
 ## Prochaines améliorations
 

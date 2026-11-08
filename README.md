@@ -23,42 +23,16 @@ Si votre assistant accepte uniquement les dossiers de skills, décompressez le f
 
 Découvrez des [exemples avant/après](EXAMPLES.md) et le [compte rendu des essais](tests/EXPERIENCE.md).
 
-## Mini-interface Advanced
+## Advanced : l’IA propose et génère
 
-[Ouvrir la mini-app privée sur Sites](https://suno-prompt-architect.fredolapower.chatgpt.site).
+Le skill traduit votre idée en direction musicale et produit directement les blocs **Description / Styles** et **Lyrics** adaptés à votre demande. Il compose aussi les mouvements, montées, drops et solos lorsque vous souhaitez une structure instrumentale. Une demande suffisamment précise mène directement aux textes à copier.
 
-Advanced arrive directement sur les deux champs à copier. Structure, projets et composition détaillée sont repliés ; aucun questionnaire obligatoire ne précède l’atelier. La mini-app prépare les textes et ne se connecte pas au compte Suno. Son accès reste privé au propriétaire tant qu’aucun partage n’est demandé.
-
-Un petit éditeur pour construire le déroulé instrumental directement, sans série de questions : ajoutez Intro, Thème, Montée, Drop, Respiration, Solo, Mouvement ou Fin ; réordonnez les blocs ; réglez leur intensité et leur place relative dans le morceau. Le texte Lyrics se construit en direct, séparément du Style.
-
-Les deux blocs correspondent aux champs Suno : **Lyrics** (structure, 5 000 caractères) et **Description · Styles** (identité musicale modifiable, 1 000 caractères). Chacun possède son compteur et son bouton de copie. Modifier les sections ou appliquer un point de départ ne remplace jamais la description. Un dépassement bloque uniquement la copie du champ concerné, sans tronquer le texte.
-
-Téléchargez **advanced-arranger.html** dans la [dernière version publiée](https://github.com/leclerefrederic/suno-architect/releases/latest), puis ouvrez-le dans un navigateur. Il fonctionne hors ligne, sans installation. Le bouton **Copier Lyrics** permet de transférer la structure dans Suno ; si le navigateur refuse la copie, le texte est sélectionné pour une copie manuelle.
-
-L’interface est également incluse dans le `.skill`. Son affichage dans la conversation dépend du moteur interactif de l’assistant : elle ne crée pas un onglet natif permanent dans ChatGPT ou Suno. Les libellés intégrés sont disponibles en français, anglais et espagnol.
-
-**Composer la description** propose style, ambiance, couleur du son, rythme et instruments. Appliquer ces choix remplace uniquement la description ; Annuler restitue le texte précédent. Les sections ne changent pas.
-
-**Mes projets** permet d’enregistrer jusqu’à 20 projets dans ce navigateur, d’en dupliquer une version et de comparer la description et le déroulé avec une sauvegarde. Export/import JSON permet de les transporter. Les projets enregistrés restent accessibles après rechargement dans le même navigateur et la même origine, lorsque le stockage est autorisé ; les modifications non enregistrées ne sont pas restaurées automatiquement. Si le stockage est refusé, l’éditeur signale que la copie reste dans la session et invite à exporter. Ce n’est pas une synchronisation dans un compte.
-
-Des indications de cohérence signalent notamment une voix demandée contre un Lyrics instrumental, un grand final contre une boucle, ou des sections après une fin. Elles ne modifient pas le texte et ne remplacent pas une vérification musicale.
-
-Cette première version prépare uniquement des structures instrumentales : elle ne fusionne pas des paroles existantes. Les balises sont des intentions de composition, pas un langage de commandes garanti ; le résultat doit être vérifié à l’écoute.
-
-Express et Studio définissent l’accompagnement, indépendamment du mode de saisie Suno.
-
-| Mode Suno | Limite de saisie |
-| --- | --- |
-| Earn Credits | 200 caractères |
-| Creative Simple — compte gratuit | 3 000 caractères |
-| Creative Advanced — compte gratuit | Style : 1 000 caractères ; Lyrics : 5 000 caractères, séparément |
-
-Ces limites correspondent aux spécifications fournies pour cette version. Le skill n’ajoute pas de paroles à un morceau instrumental sans demande.
+La mini-app statique a été abandonnée : elle ne reproduisait pas la force de proposition de l’expérience conversationnelle. Son code reste consultable dans l’historique Git, mais il n’est plus distribué ni proposé par le skill.
 
 ## Contenu du dépôt
 
 - [`ROADMAP.md`](ROADMAP.md) : idées d’évolution et suivi des prochaines améliorations.
-- [`skills/suno-prompt-architect/`](skills/suno-prompt-architect/) : source du skill **v1.10.0**, sa boîte à outils créative, son éditeur Advanced et son compteur facultatif.
+- [`skills/suno-prompt-architect/`](skills/suno-prompt-architect/) : source du skill **v1.11.0**, sa boîte à outils créative et son compteur facultatif.
 - [`suno-prompt-architect.skill`](suno-prompt-architect.skill) : version à importer, contenant exactement ces fichiers.
 - `LICENSE` : licence du dépôt.
 
@@ -74,31 +48,7 @@ python3 scripts/build_skill.py
 python3 scripts/build_skill.py --check
 ```
 
-Pour produire aussi l’éditeur autonome :
-
-```sh
-python3 scripts/build_skill.py --interface-output work/advanced-arranger.html
-```
-
-Les contrôles de l’interface nécessitent Node.js et Chrome, sans bibliothèque à installer :
-
-```sh
-node tests/test_arranger.mjs
-```
-
-Sur un autre emplacement de Chrome, définissez `CHROME_PATH`. Les captures et résultats de test vont dans `work/`, hors du dépôt suivi.
-
 La construction est reproductible : des sources identiques donnent une archive identique. Seuls les fichiers du dossier du skill sont inclus ; les tests et documents du dépôt restent hors de l’archive.
-
-### Hébergement Sites
-
-`.openai/hosting.json` conserve l’identité du Site existant. Pour préparer son contenu statique à partir de la même source :
-
-```sh
-python3 scripts/build_site.py --output work/hosted-suno
-```
-
-La publication utilise ensuite le dépôt technique de Sites et son processus de sauvegarde/déploiement. Le dépôt GitHub présent reste la source de référence ; le dossier `work/` est une préparation non suivie. Réutiliser le même `project_id` pour les mises à jour.
 
 Pour vérifier un texte exact (espaces et retours à la ligne inclus) :
 
