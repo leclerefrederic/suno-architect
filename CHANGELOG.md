@@ -1,5 +1,12 @@
 # Versions
 
+## 1.10.0
+
+- Mini-app privée hébergée sur Sites, construite depuis la même source que le skill et l’éditeur autonome.
+- Advanced ouvre directement l’atelier : deux champs visibles, structure et autres réglages repliés, aucun questionnaire préalable obligatoire.
+- Identité du Site conservée dans Git et préparation statique reproductible.
+- 57 contrôles navigateur et 11 tests Python, dont la concordance de la source hébergée et de l’identité du Site.
+
 ## 1.9.0
 
 - Description composable par sélecteurs et instruments, application explicite et annulation conservant le texte précédent.

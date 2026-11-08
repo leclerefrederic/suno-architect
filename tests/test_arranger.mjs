@@ -24,7 +24,7 @@ try{
   const {sessionId}=await send('Target.attachToTarget',{targetId,flatten:true});
   const evaluate=async expression=>{const r=await send('Runtime.evaluate',{expression,awaitPromise:true,returnByValue:true},sessionId);if(r.exceptionDetails)throw new Error(JSON.stringify(r.exceptionDetails));return r.result.value;};
   await send('Page.enable',{},sessionId);
-  await send('Page.navigate',{url:pathToFileURL(resolve(root,'skills/suno-prompt-architect/assets/advanced-arranger.html')).href},sessionId);
+  await send('Page.navigate',{url:process.env.ARRANGER_URL||pathToFileURL(resolve(root,'skills/suno-prompt-architect/assets/advanced-arranger.html')).href},sessionId);
   for(let i=0;i<100;i++){if(await evaluate('Boolean(document.querySelector("#sa-output")?.value)'))break;await new Promise(r=>setTimeout(r,50));}
   const result=await evaluate(`(async()=>{
     const results=[];const q=s=>document.querySelector(s);const all=s=>[...document.querySelectorAll(s)];
@@ -32,6 +32,7 @@ try{
     const blocks=()=>all('#sa-sequence .sa-block');const out=()=>q('#sa-output').value;
     const change=(e,v)=>{e.value=v;e.dispatchEvent(new Event('change',{bubbles:true}));};
     check('initial structure renders six blocks',blocks().length===6 && out().startsWith('[Instrumental]'));
+    check('Advanced entry shows outputs with structure collapsed',!q('#sa-structure').open&&q('#sa-output').getBoundingClientRect().height>0&&q('#sa-style').getBoundingClientRect().height>0);q('#sa-structure').open=true;
     check('both Suno blocks render with separate budgets',q('#sa-style').value.length>0&&q('#sa-style-count').textContent.includes('1 000')&&q('#sa-count').textContent.includes('5 000'));
     const pick=blocks()[1].querySelector('.sa-pick');pick.focus();pick.click();check('keyboard focus survives section selection',document.activeElement.dataset.focus===blocks()[1].querySelector('.sa-pick').dataset.focus);
     check('generated instructions stay bracketed',out().split('\\n').filter(Boolean).every(s=>s.startsWith('[')&&s.endsWith(']')));

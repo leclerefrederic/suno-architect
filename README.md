@@ -25,6 +25,10 @@ Découvrez des [exemples avant/après](EXAMPLES.md) et le [compte rendu des essa
 
 ## Mini-interface Advanced
 
+[Ouvrir la mini-app privée sur Sites](https://suno-prompt-architect.fredolapower.chatgpt.site).
+
+Advanced arrive directement sur les deux champs à copier. Structure, projets et composition détaillée sont repliés ; aucun questionnaire obligatoire ne précède l’atelier. La mini-app prépare les textes et ne se connecte pas au compte Suno. Son accès reste privé au propriétaire tant qu’aucun partage n’est demandé.
+
 Un petit éditeur pour construire le déroulé instrumental directement, sans série de questions : ajoutez Intro, Thème, Montée, Drop, Respiration, Solo, Mouvement ou Fin ; réordonnez les blocs ; réglez leur intensité et leur place relative dans le morceau. Le texte Lyrics se construit en direct, séparément du Style.
 
 Les deux blocs correspondent aux champs Suno : **Lyrics** (structure, 5 000 caractères) et **Description · Styles** (identité musicale modifiable, 1 000 caractères). Chacun possède son compteur et son bouton de copie. Modifier les sections ou appliquer un point de départ ne remplace jamais la description. Un dépassement bloque uniquement la copie du champ concerné, sans tronquer le texte.
@@ -54,7 +58,7 @@ Ces limites correspondent aux spécifications fournies pour cette version. Le sk
 ## Contenu du dépôt
 
 - [`ROADMAP.md`](ROADMAP.md) : idées d’évolution et suivi des prochaines améliorations.
-- [`skills/suno-prompt-architect/`](skills/suno-prompt-architect/) : source du skill **v1.9.0**, sa boîte à outils créative, son éditeur Advanced et son compteur facultatif.
+- [`skills/suno-prompt-architect/`](skills/suno-prompt-architect/) : source du skill **v1.10.0**, sa boîte à outils créative, son éditeur Advanced et son compteur facultatif.
 - [`suno-prompt-architect.skill`](suno-prompt-architect.skill) : version à importer, contenant exactement ces fichiers.
 - `LICENSE` : licence du dépôt.
 
@@ -85,6 +89,16 @@ node tests/test_arranger.mjs
 Sur un autre emplacement de Chrome, définissez `CHROME_PATH`. Les captures et résultats de test vont dans `work/`, hors du dépôt suivi.
 
 La construction est reproductible : des sources identiques donnent une archive identique. Seuls les fichiers du dossier du skill sont inclus ; les tests et documents du dépôt restent hors de l’archive.
+
+### Hébergement Sites
+
+`.openai/hosting.json` conserve l’identité du Site existant. Pour préparer son contenu statique à partir de la même source :
+
+```sh
+python3 scripts/build_site.py --output work/hosted-suno
+```
+
+La publication utilise ensuite le dépôt technique de Sites et son processus de sauvegarde/déploiement. Le dépôt GitHub présent reste la source de référence ; le dossier `work/` est une préparation non suivie. Réutiliser le même `project_id` pour les mises à jour.
 
 Pour vérifier un texte exact (espaces et retours à la ligne inclus) :
 

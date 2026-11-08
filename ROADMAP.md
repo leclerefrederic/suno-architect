@@ -4,6 +4,7 @@ Des idées pour donner encore plus de personnalité aux morceaux, sans transform
 
 ## Atelier Advanced — v1.7.0
 
+- [x] **Mini-app hébergée et entrée courte — v1.10.0.** Deux blocs visibles dès l’ouverture, aucun questionnaire préalable, réglages repliés et hébergement privé sur Sites depuis la même source.
 - [x] **Description composable — v1.9.0.** Style, ambiance, texture, rythme et instruments ; application explicite avec annulation.
 - [x] **Projets et versions — v1.9.0.** Enregistrement local, duplication, comparaison avec une sauvegarde et export/import portable.
 - [x] **Repérer des contradictions — v1.9.0.** Indications non bloquantes sur les voix, boucles et fins ; elles restent des heuristiques.

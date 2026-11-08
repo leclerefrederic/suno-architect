@@ -1,5 +1,11 @@
 # Essais — 8 novembre 2026
 
+## v1.10.0 — mini-app Sites et entrée courte
+
+**57 contrôles navigateur et 11 tests Python.** Le nouveau contrôle vérifie que les deux champs sont visibles dès l’entrée et que la structure est repliée. La préparation statique vérifie la même source d’interface et le même identifiant de Site que le dépôt de référence. L’aperçu HTTP local répond avec succès et la suite navigateur peut le cibler avec `ARRANGER_URL`.
+
+La publication native Sites confirme l’hébergement ; l’accès reste privé. La mini-app reste un éditeur de textes, sans génération audio ni connexion au compte Suno. Les projets sont conservés localement selon les permissions du navigateur.
+
 ## v1.9.0 — composition et projets
 
 **56 contrôles navigateur et 10 tests Python.** La nouvelle série vérifie la traduction des choix en description, la conservation de Lyrics, l’annulation exacte, les contradictions voix/boucle et leurs négations courantes, l’enregistrement nommé, la duplication, la comparaison et la réouverture des deux champs.

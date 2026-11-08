@@ -1,5 +1,9 @@
 # Advanced — direct arrangement editor
 
+## Hosted app and short entry
+
+The owner-private Site is [Suno Prompt Architect](https://suno-prompt-architect.fredolapower.chatgpt.site). Advanced opens the app immediately, without a mandatory sequence of menus. Structure, projects and the description composer are collapsed initially; Description and Lyrics are ready to edit/copy from a starter. No account/API connection to Suno, cloud project sync or server AI is implied. Existing private audience stays unchanged. If this Site is unavailable or not shared with a visitor, provide the bundled editor rather than inventing access.
+
 ## Open the interface, don't ask about every section
 
 Use [assets/advanced-arranger.html](../assets/advanced-arranger.html) when the user asks for a mini-interface or to arrange instrumental sections visually. It is a self-contained runnable HTML fragment: no network, account, build dependencies or music generation. It can also open directly in a browser. The source is shared by the distributed skill and inline preview.
