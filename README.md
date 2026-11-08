@@ -27,6 +27,8 @@ Découvrez des [exemples avant/après](EXAMPLES.md) et le [compte rendu des essa
 
 Un petit éditeur pour construire le déroulé instrumental directement, sans série de questions : ajoutez Intro, Thème, Montée, Drop, Respiration, Solo, Mouvement ou Fin ; réordonnez les blocs ; réglez leur intensité et leur place relative dans le morceau. Le texte Lyrics se construit en direct, séparément du Style.
 
+Les deux blocs correspondent aux champs Suno : **Lyrics** (structure, 5 000 caractères) et **Description · Styles** (identité musicale modifiable, 1 000 caractères). Chacun possède son compteur et son bouton de copie. Modifier les sections ou appliquer un point de départ ne remplace jamais la description. Un dépassement bloque uniquement la copie du champ concerné, sans tronquer le texte.
+
 Téléchargez **advanced-arranger.html** dans la [dernière version publiée](https://github.com/leclerefrederic/suno-architect/releases/latest), puis ouvrez-le dans un navigateur. Il fonctionne hors ligne, sans installation. Le bouton **Copier Lyrics** permet de transférer la structure dans Suno ; si le navigateur refuse la copie, le texte est sélectionné pour une copie manuelle.
 
 L’interface est également incluse dans le `.skill`. Son affichage dans la conversation dépend du moteur interactif de l’assistant : elle ne crée pas un onglet natif permanent dans ChatGPT ou Suno. Les libellés intégrés sont disponibles en français, anglais et espagnol. Dans un navigateur seul, les modifications ne sont pas conservées après rechargement.
@@ -46,7 +48,7 @@ Ces limites correspondent aux spécifications fournies pour cette version. Le sk
 ## Contenu du dépôt
 
 - [`ROADMAP.md`](ROADMAP.md) : idées d’évolution et suivi des prochaines améliorations.
-- [`skills/suno-prompt-architect/`](skills/suno-prompt-architect/) : source du skill **v1.7.0**, sa boîte à outils créative, son éditeur Advanced et son compteur facultatif.
+- [`skills/suno-prompt-architect/`](skills/suno-prompt-architect/) : source du skill **v1.8.0**, sa boîte à outils créative, son éditeur Advanced et son compteur facultatif.
 - [`suno-prompt-architect.skill`](suno-prompt-architect.skill) : version à importer, contenant exactement ces fichiers.
 - `LICENSE` : licence du dépôt.
 

@@ -1,5 +1,11 @@
 # Essais — 8 novembre 2026
 
+## v1.8.0 — les deux champs Suno
+
+**37 contrôles navigateur et 10 tests Python réussis.** Les nouveaux essais couvrent la présence des deux champs et de leurs compteurs ; la modification de la description sans réécrire Lyrics ; la conservation de la description lors des modifications de structure et de l’application d’un point de départ ; la limite exacte de 1 000, le dépassement de 1 001 et les caractères Unicode ; le champ vide ; la copie indépendante et son refus simulé ; les états anciens et nouveaux.
+
+Les copies sont vérifiées avec une API simulée dans Chrome. Les captures à 320 et 736 px sont produites par le même test. L’interface conserve toujours le texte dépassant la limite, le signale et bloque uniquement sa copie ; elle ne le tronque pas. La description envoyée au modèle est vérifiée séparément de Lyrics. Le son généré n’a pas été testé.
+
 ## v1.7.0 — mini-interface Advanced
 
 L’éditeur a été exécuté dans un vrai Chrome sans fenêtre, sur un profil temporaire, avec ses interactions locales. Le script reproductible est [test_arranger.mjs](test_arranger.mjs) ; il utilise uniquement les API intégrées de Node.js et le protocole de contrôle de Chrome.

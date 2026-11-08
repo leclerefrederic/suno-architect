@@ -1,5 +1,12 @@
 # Versions
 
+## 1.8.0
+
+- Les deux blocs Suno sont présents : Lyrics et Description · Styles, avec limites et boutons de copie indépendants.
+- Description modifiable et conservée lors des modifications du déroulé ou des changements de point de départ.
+- Reprise des anciens états sans perdre la description ; nouvel état incluant les deux champs.
+- 37 contrôles navigateur et 10 tests Python réussis.
+
 ## 1.7.0
 
 - Mini-interface Advanced de structure instrumentale : blocs réordonnables, montées, drops, respirations, solos, mouvements et fins.

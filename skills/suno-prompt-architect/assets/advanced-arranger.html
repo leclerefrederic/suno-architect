@@ -47,6 +47,7 @@
   <section class="sa-section"><h3 data-i18n="add">Ajouter un moment</h3><div id="sa-palette" class="sa-palette"></div></section>
   <section class="sa-section" aria-labelledby="sa-order-title"><div class="sa-output-head"><h3 id="sa-order-title" data-i18n="sequence">Le déroulé</h3><span class="sa-muted" id="sa-total"></span></div><ol id="sa-sequence" class="sa-sequence"></ol><div id="sa-editor" class="sa-editor"></div></section>
   <section class="sa-section"><div class="sa-output-head"><h3 data-i18n="output">Structure instrumentale · Lyrics</h3><span class="sa-muted" id="sa-count" aria-live="polite"></span></div><textarea id="sa-output" readonly aria-label="Lyrics" spellcheck="false"></textarea><p id="sa-error" role="alert"></p><div class="sa-footer"><button type="button" id="sa-copy" class="sa-primary cursor-interaction" data-i18n="copy">Copier Lyrics</button><span id="sa-status" class="sa-status" role="status" aria-live="polite"></span></div><p class="sa-muted" data-i18n="note" style="margin-top:10px">Des intentions de structure, sans paroles chantées ni timing garanti. Le champ Style reste séparé.</p></section>
+  <section class="sa-section" aria-labelledby="sa-description-title"><div class="sa-output-head"><h3 id="sa-description-title" data-i18n="description">Description · Styles</h3><span class="sa-muted" id="sa-style-count" aria-live="polite"></span></div><textarea id="sa-style" aria-labelledby="sa-description-title" rows="5" spellcheck="false"></textarea><p id="sa-style-error" role="alert"></p><div class="sa-footer"><button type="button" id="sa-copy-style" class="sa-primary cursor-interaction" data-i18n="copyStyle">Copier la description</button><span id="sa-style-status" class="sa-status" role="status" aria-live="polite"></span></div></section>
   <script>
   (() => {
     const root = document.getElementById('suno-arranger-ui');
@@ -57,18 +58,22 @@
       en:{title:'Map out your track',preset:'Starting point',load:'Apply',add:'Add a moment',sequence:'The arrangement',output:'Instrumental structure · Lyrics',copy:'Copy Lyrics',note:'Structure cues, without sung words or guaranteed timing. Style stays separate.',types:['Intro','Theme','Build','Drop','Breather','Solo','Movement','Ending'],presets:['Groove & contrast','Rising energy','Three-movement journey'],energy:'Intensity',length:'Space in the track',lead:'Solo instrument',lengths:['Short','Regular','Extended'],leads:['Bass','Guitar','Piano','Saxophone','Synth','Drums'],moveUp:'Move earlier',moveDown:'Move later',remove:'Remove',selected:'Settings',copied:'Lyrics copied.',manual:'Text selected: use Copy or Ctrl/Cmd+C.',empty:'Add your first moment.',limit:'Maximum 16 moments.',invalid:'Text exceeds 5,000 characters.',total:'moments',end:'Ending type',ends:['Clear resolution','Soft close','Loop back'],replaced:'Arrangement applied.',edited:'Arrangement updated.'},
       es:{title:'El mapa de tu tema',preset:'Punto de partida',load:'Aplicar',add:'Añadir un momento',sequence:'La estructura',output:'Estructura instrumental · Lyrics',copy:'Copiar Lyrics',note:'Indicaciones de estructura, sin letra cantada ni tiempos garantizados. Style queda separado.',types:['Intro','Tema','Subida','Drop','Respiro','Solo','Movimiento','Final'],presets:['Ritmo y contrastes','Energía en aumento','Viaje en tres movimientos'],energy:'Intensidad',length:'Espacio en el tema',lead:'Instrumento del solo',lengths:['Corto','Normal','Amplio'],leads:['Bajo','Guitarra','Piano','Saxofón','Sinte','Batería'],moveUp:'Adelantar',moveDown:'Retrasar',remove:'Eliminar',selected:'Ajustes',copied:'Lyrics copiados.',manual:'Texto seleccionado: usa Copiar o Ctrl/Cmd+C.',empty:'Añade el primer momento.',limit:'Máximo 16 momentos.',invalid:'El texto supera los 5 000 caracteres.',total:'momentos',end:'Tipo de final',ends:['Cierre definido','Final suave','Volver al inicio'],replaced:'Estructura aplicada.',edited:'Estructura actualizada.'}
     };
+    Object.assign(COPY.fr,{description:'Description · Styles',copyStyle:'Copier la description',styleCopied:'Description copiée.',styleInvalid:'La description dépasse 1 000 caractères.',styleEmpty:'Ajoutez une description musicale.',note:'Lyrics décrit le déroulé ; Description / Styles définit le son. Les transitions et le timing restent des intentions.'});
+    Object.assign(COPY.en,{description:'Description · Styles',copyStyle:'Copy description',styleCopied:'Description copied.',styleInvalid:'Description exceeds 1,000 characters.',styleEmpty:'Add a musical description.',note:'Lyrics maps the arrangement; Description / Styles defines the sound. Transitions and timing are intentions.'});
+    Object.assign(COPY.es,{description:'Descripción · Styles',copyStyle:'Copiar descripción',styleCopied:'Descripción copiada.',styleInvalid:'La descripción supera los 1 000 caracteres.',styleEmpty:'Añade una descripción musical.',note:'Lyrics define la estructura; Descripción / Styles define el sonido. Las transiciones y los tiempos son orientativos.'});
     const LEADS = ['bass','guitar','piano','saxophone','synth','drums'];
     const PRESETS = [ ['intro','theme','break','solo','theme','outro'],['intro','build','drop','break','build','drop','outro'],['intro','movement','build','movement','movement','outro'] ];
     const el = id => root.querySelector('#sa-'+id);
     const makeBlock = (type,id) => ({id,type,energy:({intro:2,theme:3,build:4,drop:5,break:1,solo:3,movement:3,outro:2})[type],length:'regular',lead:'bass',ending:'resolve'});
     let uid=0, selected=0;
-    const defaultState = () => ({schema:1,locale:COPY[root.dataset.locale]?root.dataset.locale:'fr',blocks:PRESETS[0].map(t=>makeBlock(t,++uid))});
+    const defaultStyle='Instrumental modern electro-funk at 116 BPM. Tight buoyant bass, crisp drums, muted guitar, clavinet and restrained brass in a sleek nu-disco pocket. Subtle analog synth textures, warm polished production, playful confident energy. No vocals, speech or choir.';
+    const defaultState = () => ({schema:2,locale:COPY[root.dataset.locale]?root.dataset.locale:'fr',style:root.dataset.description??defaultStyle,blocks:PRESETS[0].map(t=>makeBlock(t,++uid))});
     let state=defaultState();
-    const valid = value => value && value.schema===1 && COPY[value.locale] && Array.isArray(value.blocks) && value.blocks.length<=16 && value.blocks.every(b=>b && TYPES.includes(b.type) && Number.isInteger(b.energy) && b.energy>=1 && b.energy<=5 && ['short','regular','extended'].includes(b.length) && LEADS.includes(b.lead) && ['resolve','soft','loop'].includes(b.ending));
+    const valid = value => value && [1,2].includes(value.schema) && (value.schema===1 || (typeof value.style==='string' && value.style.length<=1000)) && COPY[value.locale] && Array.isArray(value.blocks) && value.blocks.length<=16 && value.blocks.every(b=>b && TYPES.includes(b.type) && Number.isInteger(b.energy) && b.energy>=1 && b.energy<=5 && ['short','regular','extended'].includes(b.length) && LEADS.includes(b.lead) && ['resolve','soft','loop'].includes(b.ending));
     const restore = data => {
       const value=data?.modelContent?.arranger;
       if(!valid(value))return;
-      state=JSON.parse(JSON.stringify(value)); state.blocks.forEach(b=>b.id=++uid);selected=state.blocks[0]?.id||0;
+      const priorStyle=state.style;state=JSON.parse(JSON.stringify(value));state.style=value.schema===1?priorStyle:value.style;state.schema=2;state.blocks.forEach(b=>b.id=++uid);selected=state.blocks[0]?.id||0;
     };
     try { restore(window.openai?.widgetState); } catch {}
     selected=state.blocks[0]?.id||0;
@@ -88,7 +93,8 @@
       }).join('\n\n');
     }
     function save() {
-      const payload={modelContent:{arranger:state,lyrics:compile(state.blocks)},privateContent:null};
+      if(state.style.length>1000)return;
+      const payload={modelContent:{arranger:JSON.parse(JSON.stringify(state)),style:state.style,lyrics:state.blocks.length?compile(state.blocks):''},privateContent:null};
       try { const pending=window.openai?.setWidgetState?.(payload); pending?.catch?.(()=>{}); } catch {}
     }
     const text = () => COPY[state.locale];
@@ -131,13 +137,15 @@
         if(block.type==='solo')el('editor').append(control(t.lead,LEADS,t.leads,block.lead,v=>change(block,'lead',v)));
         if(block.type==='outro')el('editor').append(control(t.end,['resolve','soft','loop'],t.ends,block.ending,v=>change(block,'ending',v)));
       }
-      el('output').value=state.blocks.length?compile(state.blocks):'';el('output').rows=7;el('output').scrollTop=0;updateCount();
+      el('output').value=state.blocks.length?compile(state.blocks):'';el('output').rows=7;el('output').scrollTop=0;el('style').value=state.style;updateCount();
       if(activeKey){const target=[...root.querySelectorAll('[data-focus]')].find(n=>n.dataset.focus===activeKey&&!n.disabled)||root.querySelector('.sa-pick[aria-pressed=true]');target?.focus({preventScroll:true});}
     }
-    function updateCount(){const output=el('output').value;const count=Math.max(output.length,Array.from(output).length);el('count').textContent=count.toLocaleString(state.locale)+' / 5 000';el('copy').disabled=!output||count>5000;el('error').textContent=count>5000?text().invalid:(!output?text().empty:'');}
+    function updateCount(){const output=el('output').value;const count=Math.max(output.length,Array.from(output).length);el('count').textContent=count.toLocaleString(state.locale)+' / 5 000';el('copy').disabled=!output||count>5000;el('error').textContent=count>5000?text().invalid:(!output?text().empty:'');const size=state.style.length;el('style-count').textContent=size.toLocaleString(state.locale)+' / 1 000';el('copy-style').disabled=!state.style.trim()||size>1000;el('style-error').textContent=size>1000?text().styleInvalid:(!state.style.trim()?text().styleEmpty:'');}
+    el('style').oninput=()=>{state.style=el('style').value;el('style-status').textContent='';updateCount();save();};
     el('language').onchange=()=>{state.locale=el('language').value;render();save();message('edited');};
     el('load').onclick=()=>{state.blocks=PRESETS[Number(el('preset').value)].map(t=>makeBlock(t,++uid));selected=state.blocks[0].id;render();save();message('replaced');};
     el('copy').onclick=async()=>{try{if(!navigator.clipboard?.writeText)throw new Error('Clipboard unavailable');await navigator.clipboard.writeText(el('output').value);message('copied');}catch{el('output').focus();el('output').select();message('manual');}};
+    el('copy-style').onclick=async()=>{try{if(!navigator.clipboard?.writeText)throw new Error('Clipboard unavailable');await navigator.clipboard.writeText(el('style').value);el('style-status').textContent=text().styleCopied;}catch{el('style').focus();el('style').select();el('style-status').textContent=text().manual;}};
     window.addEventListener('openai:set_globals',event=>{if(event.detail?.globals?.widgetState){restore(event.detail.globals.widgetState);render();}});
     render();
   })();

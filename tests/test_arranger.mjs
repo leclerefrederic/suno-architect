@@ -30,6 +30,7 @@ try{
     const blocks=()=>all('#sa-sequence .sa-block');const out=()=>q('#sa-output').value;
     const change=(e,v)=>{e.value=v;e.dispatchEvent(new Event('change',{bubbles:true}));};
     check('initial structure renders six blocks',blocks().length===6 && out().startsWith('[Instrumental]'));
+    check('both Suno blocks render with separate budgets',q('#sa-style').value.length>0&&q('#sa-style-count').textContent.includes('1 000')&&q('#sa-count').textContent.includes('5 000'));
     const pick=blocks()[1].querySelector('.sa-pick');pick.focus();pick.click();check('keyboard focus survives section selection',document.activeElement.dataset.focus===blocks()[1].querySelector('.sa-pick').dataset.focus);
     check('generated instructions stay bracketed',out().split('\\n').filter(Boolean).every(s=>s.startsWith('[')&&s.endsWith(']')));
     q('#sa-palette').children[3].click();check('add drop updates Lyrics',blocks().length===7&&out().includes('[Drop:'));
@@ -54,6 +55,19 @@ try{
     let copied='';Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async value=>{copied=value;}}});q('#sa-copy').click();await new Promise(r=>setTimeout(r,0));check('copy passes exact Lyrics to clipboard API',copied===out()&&q('#sa-status').textContent==='Lyrics copiés.');
     Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async()=>{throw new Error('denied');}}});q('#sa-copy').click();await new Promise(r=>setTimeout(r,0));check('denied clipboard selects output for manual copy',q('#sa-output').selectionEnd===out().length&&q('#sa-status').textContent.includes('Ctrl/Cmd+C'));
     let snapshot;window.openai={setWidgetState:async value=>{snapshot=value;}};q('#sa-palette').children[2].click();check('host handoff includes current state and Lyrics',snapshot.modelContent.lyrics===out()&&snapshot.modelContent.arranger.blocks.length===7);
+    const editStyle=value=>{q('#sa-style').value=value;q('#sa-style').dispatchEvent(new Event('input',{bubbles:true}));};
+    const musicalStyle='Instrumental jazz-funk, warm Rhodes, dry drums and bass. No vocals.';editStyle(musicalStyle);const lyricsBefore=out();
+    check('description editing does not rewrite Lyrics',out()===lyricsBefore&&snapshot.modelContent.style===musicalStyle&&snapshot.modelContent.arranger.schema===2);
+    q('#sa-palette').children[2].click();check('arrangement edits preserve description',q('#sa-style').value===musicalStyle);
+    q('#sa-load').click();check('preset preserves description',q('#sa-style').value===musicalStyle);
+    editStyle('x'.repeat(1000));check('description accepts exact limit',!q('#sa-copy-style').disabled);
+    editStyle('x'.repeat(1001));check('description overflow blocks only description copy',q('#sa-copy-style').disabled&&!q('#sa-copy').disabled&&q('#sa-style-error').textContent.length>0&&q('#sa-style').value.length===1001);
+    editStyle('🎷'.repeat(501));check('description counts UTF16 units conservatively',q('#sa-copy-style').disabled);
+    editStyle('');check('empty description leaves Lyrics usable',q('#sa-copy-style').disabled&&!q('#sa-copy').disabled);
+    editStyle(musicalStyle);let styleCopied='';Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async value=>{styleCopied=value;}}});q('#sa-copy-style').click();await new Promise(r=>setTimeout(r,0));check('description copy uses exact independent field',styleCopied===musicalStyle);
+    Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async()=>{throw new Error('denied');}}});q('#sa-copy-style').click();await new Promise(r=>setTimeout(r,0));check('description copy denial selects description',q('#sa-style').selectionEnd===musicalStyle.length&&q('#sa-style-status').textContent.includes('Ctrl/Cmd+C'));
+    window.dispatchEvent(new CustomEvent('openai:set_globals',{detail:{globals:{widgetState:{modelContent:{arranger:{...saved,schema:2,style:'Warm instrumental soul.'}}}}}}));check('new saved state restores both blocks',q('#sa-style').value==='Warm instrumental soul.'&&out().includes('[Piano Solo:'));
+    window.dispatchEvent(new CustomEvent('openai:set_globals',{detail:{globals:{widgetState:{modelContent:{arranger:saved}}}}}));check('old saved state preserves current description',q('#sa-style').value==='Warm instrumental soul.');
     change(q('#sa-preset'),'0');q('#sa-load').click();q('#sa-output').blur();
     return results;
   })()`);
