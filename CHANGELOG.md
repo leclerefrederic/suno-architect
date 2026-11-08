@@ -1,5 +1,13 @@
 # Versions
 
+## 1.9.0
+
+- Description composable par sélecteurs et instruments, application explicite et annulation conservant le texte précédent.
+- Projets nommés enregistrés localement, duplication et comparaison des deux champs avec une version sauvegardée.
+- Export/import JSON portable, validation du format et signalement d’un stockage indisponible.
+- Indications de cohérence sur les voix, boucles et fins, sans modification automatique des choix.
+- 56 contrôles navigateur et 10 tests Python ; export réellement téléchargé et bibliothèque retrouvée après rechargement.
+
 ## 1.8.0
 
 - Les deux blocs Suno sont présents : Lyrics et Description · Styles, avec limites et boutons de copie indépendants.

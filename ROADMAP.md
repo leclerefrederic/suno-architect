@@ -4,6 +4,10 @@ Des idées pour donner encore plus de personnalité aux morceaux, sans transform
 
 ## Atelier Advanced — v1.7.0
 
+- [x] **Description composable — v1.9.0.** Style, ambiance, texture, rythme et instruments ; application explicite avec annulation.
+- [x] **Projets et versions — v1.9.0.** Enregistrement local, duplication, comparaison avec une sauvegarde et export/import portable.
+- [x] **Repérer des contradictions — v1.9.0.** Indications non bloquantes sur les voix, boucles et fins ; elles restent des heuristiques.
+- [ ] **Courbe d’énergie manipulable.** Déplacer les points d’une courbe pour ajuster les sections, en complément des réglages actuels.
 - [x] **Les deux blocs Suno — v1.8.0.** Lyrics et Description · Styles, compteurs 5 000 / 1 000, copies indépendantes et description préservée lors du travail sur la structure.
 - [x] **Une mini-interface, sans questionnaire.** Ajouter, réordonner et retirer des moments ; régler intensité, longueur relative, instrument du solo et type de fin.
 - [x] **Transposer dans Lyrics.** Générer les balises instrumentales en direct, séparément du Style, sans inventer de paroles chantées.

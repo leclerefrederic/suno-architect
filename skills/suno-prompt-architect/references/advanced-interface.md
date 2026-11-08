@@ -21,6 +21,20 @@ The workspace includes section-add buttons, ordered blocks with accessible earli
 
 The built-in labels support French, English and Spanish. Select the matching locale before presenting the interface when possible; never use English labels merely because the generated tags are in English. For another user language, translate the label dictionary in the rendered copy, keeping type IDs and compiler output stable; don't pretend a locale is built in when it is not.
 
-When available, the host's `widgetState` carries `modelContent.arranger` (schema 2, locale, style and up to 16 blocks), `modelContent.style` and `modelContent.lyrics`. The host receives changes opportunistically; state delivery is not guaranteed and does not trigger a model turn. Check supplied state against the user's later request and count the exact exported field before reusing it. Without this host API, all changes remain local until copied, and reloading starts over. Do not imply cross-conversation memory or automatic transfer into Suno.
+When available, the host's `widgetState` carries `modelContent.arranger` (schema 2, locale, style and up to 16 blocks), `modelContent.style` and `modelContent.lyrics`. The host receives changes opportunistically; state delivery is not guaranteed and does not trigger a model turn. Check supplied state against the user's later request and count the exact exported field before reusing it. Named project saves use browser-local storage when permitted, not model memory. The same browser/origin can reopen the saved library after reload; unsaved edits are not automatically restored. Embedded hosts may change or restrict storage. Do not imply cross-conversation memory, account/cloud sync or automatic transfer into Suno.
 
 Use the actual current sequence as input for later revisions when provided. Never claim to have received local edits based solely on opening the editor. The two copy actions are the reliable portable handoff. Schema 1 states are migrated while preserving the current description. A description over budget is kept visibly in the editor without truncation; its copy is blocked and it is not transmitted to the host until corrected. Lyrics stays usable independently.
+
+## Description composer
+
+The expandable composer offers genre, mood, production texture, pace and instrument toggles. Its choices are local editing controls, never a chat interview. **Apply these choices** explicitly replaces only Description / Styles, and **Undo** restores the exact previous text. Merely opening it or changing a selector does not erase a manually edited description. The generated text is instrumental; this is not a singer/lyrics editor. Block order and Lyrics stay intact.
+
+## Projects and versions
+
+The expandable project panel supports named saves, duplication, opening and comparison with a selected saved version. Comparison reports whether the description and/or arrangement differ; it is not an audio comparison. Up to 20 projects are kept in browser storage. A refused/quota-exceeded write reports session-only retention and advises export rather than falsely confirming persistent saving.
+
+Export produces a JSON project with format `suno-architect-project`, version 1, name, schema-2 state (both Suno fields through style and section blocks), and composer choices. Import checks the file type's structure, supported locale, field budgets, block settings and a 64 KiB maximum before changing the current project. Import does not save into the library until the user clicks Save. Files contain project text, not credentials or audio. Host sandbox download permissions may vary; use the standalone browser version for portable file handling when an embedded host blocks it.
+
+## Coherence hints
+
+Non-blocking local hints flag a likely request for singing in the description against instrumental Lyrics, a big final hit against a loop ending, or an outro followed by more sections. Common English/French/Spanish negations are handled; the rules are heuristics, not a full language interpreter or proof of musical correctness. Do not silently rewrite the user's description or sections in response. Field budget errors still have their own independent copy restrictions.

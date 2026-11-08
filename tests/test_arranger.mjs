@@ -1,7 +1,7 @@
 // Real browser interaction checks, using Chrome DevTools and Node's built-in APIs.
 // Run: node tests/test_arranger.mjs. Override CHROME_PATH if needed.
 import {spawn} from 'node:child_process';
-import {mkdtemp,rm,mkdir,writeFile} from 'node:fs/promises';
+import {mkdtemp,rm,mkdir,writeFile,readFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {resolve,dirname} from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
@@ -18,6 +18,8 @@ child.stdio[4].on('data',chunk=>{buffer+=chunk.toString();let end;while((end=buf
 function send(method,params={},sessionId){return new Promise((resolve,reject)=>{const id=++next;const timer=setTimeout(()=>{pending.delete(id);reject(new Error('CDP timeout: '+method));},15000);pending.set(id,{resolve:v=>{clearTimeout(timer);resolve(v);},reject:e=>{clearTimeout(timer);reject(e);}});child.stdio[3].write(JSON.stringify({id,method,params,...(sessionId?{sessionId}:{})})+'\0');});}
 try{
   await send('Browser.getVersion');
+  const downloadDir=await mkdtemp(resolve(profile,'downloads-'));
+  await send('Browser.setDownloadBehavior',{behavior:'allow',downloadPath:downloadDir});
   const {targetId}=await send('Target.createTarget',{url:'about:blank'});
   const {sessionId}=await send('Target.attachToTarget',{targetId,flatten:true});
   const evaluate=async expression=>{const r=await send('Runtime.evaluate',{expression,awaitPromise:true,returnByValue:true},sessionId);if(r.exceptionDetails)throw new Error(JSON.stringify(r.exceptionDetails));return r.result.value;};
@@ -68,10 +70,44 @@ try{
     Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async()=>{throw new Error('denied');}}});q('#sa-copy-style').click();await new Promise(r=>setTimeout(r,0));check('description copy denial selects description',q('#sa-style').selectionEnd===musicalStyle.length&&q('#sa-style-status').textContent.includes('Ctrl/Cmd+C'));
     window.dispatchEvent(new CustomEvent('openai:set_globals',{detail:{globals:{widgetState:{modelContent:{arranger:{...saved,schema:2,style:'Warm instrumental soul.'}}}}}}));check('new saved state restores both blocks',q('#sa-style').value==='Warm instrumental soul.'&&out().includes('[Piano Solo:'));
     window.dispatchEvent(new CustomEvent('openai:set_globals',{detail:{globals:{widgetState:{modelContent:{arranger:saved}}}}}));check('old saved state preserves current description',q('#sa-style').value==='Warm instrumental soul.');
+    const manual='Instrumental custom jazz, warm piano and bass. No vocals.';editStyle(manual);const structureBeforeCompose=out();
+    q('#sa-composer').open=true;change(q('[data-compose=genre]'),'soul');change(q('[data-compose=mood]'),'mysterious');q('[data-instrument=piano]').click();q('#sa-compose-apply').click();
+    check('composer translates choices into description',q('#sa-style').value.includes('Instrumental soul, mysterious')&&q('#sa-style').value.includes('piano'));
+    check('composer preserves Lyrics and respects description budget',out()===structureBeforeCompose&&q('#sa-style').value.length<=1000);
+    q('#sa-compose-undo').click();check('composer undo restores exact manual description',q('#sa-style').value===manual);
+    editStyle('Instrumental funk. Female lead vocals.');check('coherence detects voice conflict',!q('#sa-warnings').hidden&&q('#sa-warnings').textContent.includes('voix'));
+    editStyle('Instrumental funk. No vocals, speech or choir.');check('coherence ignores explicit no-vocals exclusions',q('#sa-warnings').hidden);
+    change(q('#sa-preset'),'0');q('#sa-load').click();blocks().at(-1).querySelector('.sa-pick').click();change(all('#sa-editor select').at(-1),'loop');editStyle('Instrumental funk with a big finish.');
+    check('coherence detects loop and big ending contradiction',q('#sa-warnings').textContent.includes('grand final'));
+    editStyle('Instrumental funk, no final hit.');check('coherence handles negated final hit',q('#sa-warnings').hidden);
+    const original='Instrumental jazz-funk, warm piano, no vocals.';editStyle(original);q('#sa-project-name').value='Version A';q('#sa-project-save').click();
+    check('named project stored locally',all('#sa-project-list option').length===2&&q('#sa-project-status').textContent.includes('enregistré'));
+    const originalId=q('#sa-project-list').value;editStyle('Instrumental ambient piano.');q('#sa-project-duplicate').click();
+    check('duplicate preserves original project',all('#sa-project-list option').length===3&&q('#sa-project-name').value.includes('copie'));
+    change(q('#sa-project-list'),originalId);q('#sa-project-compare').click();check('comparison reports changed description',q('#sa-project-status').textContent.includes('description différente'));
+    q('#sa-project-open').click();check('opening project restores both fields',q('#sa-style').value===original&&out().includes('no fade or final hit'));
+    q('#sa-project-compare').click();check('comparison recognizes matching version',q('#sa-project-status').textContent.includes('identique'));
+    const importFile=async(data)=>{const transfer=new DataTransfer();transfer.items.add(new File([data],'project.json',{type:'application/json'}));q('#sa-project-file').files=transfer.files;q('#sa-project-file').dispatchEvent(new Event('change'));await new Promise(r=>setTimeout(r,20));};
+    const beforeImport=q('#sa-style').value;await importFile('{bad json');check('malformed import preserves current project',q('#sa-style').value===beforeImport&&q('#sa-project-status').textContent.includes('non reconnu'));
+    await importFile('x'.repeat(65537));check('oversized import is rejected without mutations',q('#sa-style').value===beforeImport);
+    const imported={format:'suno-architect-project',version:1,name:'Imported song',state:{...saved,schema:2,style:'Instrumental gentle piano.'}};
+    await importFile(JSON.stringify(imported));check('portable project import restores name description and sections',q('#sa-project-name').value==='Imported song'&&q('#sa-style').value==='Instrumental gentle piano.'&&out().includes('[Piano Solo:'));
+    await importFile(JSON.stringify({...imported,state:{...imported.state,locale:'__proto__'}}));check('unsupported imported locale is rejected',q('#sa-style').value==='Instrumental gentle piano.'&&q('#sa-project-status').textContent.includes('non reconnu'));
+    const oldSet=Storage.prototype.setItem;Storage.prototype.setItem=function(){throw new Error('quota');};q('#sa-project-save').click();Storage.prototype.setItem=oldSet;
+    check('unavailable storage reports session-only persistence',q('#sa-project-status').textContent.includes('session')&&q('#sa-project-status').textContent.includes('Exportez'));
+    q('#sa-project-export').click();await new Promise(r=>setTimeout(r,80));
     change(q('#sa-preset'),'0');q('#sa-load').click();q('#sa-output').blur();
     return results;
   })()`);
   for(const name of result)console.log('PASS',name);
+  const exported=JSON.parse(await readFile(resolve(downloadDir,'Imported-song.json'),'utf8'));
+  assert.equal(exported.state.style,'Instrumental gentle piano.');assert.equal(exported.state.blocks[0].lead,'piano');assert.equal(exported.name,'Imported song');
+  result.push('downloaded project file contains both fields and sections');console.log('PASS downloaded project file contains both fields and sections');
+  await send('Page.reload',{},sessionId);
+  for(let i=0;i<100;i++){if(await evaluate('Boolean(document.querySelector("#sa-project-list")?.options.length>1)'))break;await new Promise(r=>setTimeout(r,50));}
+  assert.equal(await evaluate('document.querySelector("#sa-project-list").options.length'),3);
+  result.push('saved project library survives browser reload');console.log('PASS saved project library survives browser reload');
+  await evaluate('document.querySelector(".sa-projects").open=true;document.querySelector("#sa-composer").open=true;');
   await mkdir(resolve(root,'work'),{recursive:true});
   for(const width of [736,320]){
     await send('Emulation.setDeviceMetricsOverride',{width,height:1000,deviceScaleFactor:1,mobile:false},sessionId);

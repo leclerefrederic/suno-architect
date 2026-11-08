@@ -31,7 +31,13 @@ Les deux blocs correspondent aux champs Suno : **Lyrics** (structure, 5 000 cara
 
 Téléchargez **advanced-arranger.html** dans la [dernière version publiée](https://github.com/leclerefrederic/suno-architect/releases/latest), puis ouvrez-le dans un navigateur. Il fonctionne hors ligne, sans installation. Le bouton **Copier Lyrics** permet de transférer la structure dans Suno ; si le navigateur refuse la copie, le texte est sélectionné pour une copie manuelle.
 
-L’interface est également incluse dans le `.skill`. Son affichage dans la conversation dépend du moteur interactif de l’assistant : elle ne crée pas un onglet natif permanent dans ChatGPT ou Suno. Les libellés intégrés sont disponibles en français, anglais et espagnol. Dans un navigateur seul, les modifications ne sont pas conservées après rechargement.
+L’interface est également incluse dans le `.skill`. Son affichage dans la conversation dépend du moteur interactif de l’assistant : elle ne crée pas un onglet natif permanent dans ChatGPT ou Suno. Les libellés intégrés sont disponibles en français, anglais et espagnol.
+
+**Composer la description** propose style, ambiance, couleur du son, rythme et instruments. Appliquer ces choix remplace uniquement la description ; Annuler restitue le texte précédent. Les sections ne changent pas.
+
+**Mes projets** permet d’enregistrer jusqu’à 20 projets dans ce navigateur, d’en dupliquer une version et de comparer la description et le déroulé avec une sauvegarde. Export/import JSON permet de les transporter. Les projets enregistrés restent accessibles après rechargement dans le même navigateur et la même origine, lorsque le stockage est autorisé ; les modifications non enregistrées ne sont pas restaurées automatiquement. Si le stockage est refusé, l’éditeur signale que la copie reste dans la session et invite à exporter. Ce n’est pas une synchronisation dans un compte.
+
+Des indications de cohérence signalent notamment une voix demandée contre un Lyrics instrumental, un grand final contre une boucle, ou des sections après une fin. Elles ne modifient pas le texte et ne remplacent pas une vérification musicale.
 
 Cette première version prépare uniquement des structures instrumentales : elle ne fusionne pas des paroles existantes. Les balises sont des intentions de composition, pas un langage de commandes garanti ; le résultat doit être vérifié à l’écoute.
 
@@ -48,7 +54,7 @@ Ces limites correspondent aux spécifications fournies pour cette version. Le sk
 ## Contenu du dépôt
 
 - [`ROADMAP.md`](ROADMAP.md) : idées d’évolution et suivi des prochaines améliorations.
-- [`skills/suno-prompt-architect/`](skills/suno-prompt-architect/) : source du skill **v1.8.0**, sa boîte à outils créative, son éditeur Advanced et son compteur facultatif.
+- [`skills/suno-prompt-architect/`](skills/suno-prompt-architect/) : source du skill **v1.9.0**, sa boîte à outils créative, son éditeur Advanced et son compteur facultatif.
 - [`suno-prompt-architect.skill`](suno-prompt-architect.skill) : version à importer, contenant exactement ces fichiers.
 - `LICENSE` : licence du dépôt.
 

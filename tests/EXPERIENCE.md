@@ -1,5 +1,13 @@
 # Essais — 8 novembre 2026
 
+## v1.9.0 — composition et projets
+
+**56 contrôles navigateur et 10 tests Python.** La nouvelle série vérifie la traduction des choix en description, la conservation de Lyrics, l’annulation exacte, les contradictions voix/boucle et leurs négations courantes, l’enregistrement nommé, la duplication, la comparaison et la réouverture des deux champs.
+
+Un projet JSON a été réellement téléchargé par Chrome puis relu par le test pour vérifier nom, description et blocs. L’import valide, l’import mal formé, le fichier de plus de 64 KiB et une langue non prise en charge sont testés sans mutation du projet courant en cas de refus. La bibliothèque sauvegardée est vérifiée après un vrai rechargement de page dans le même profil navigateur. Un refus de stockage est simulé pour vérifier que l’interface ne promet pas une sauvegarde persistante.
+
+Les captures avec les panneaux dépliés sont inspectées à 320 et 736 px. Le stockage et le téléchargement ont été vérifiés dans Chrome ; les politiques propres à chaque assistant embarqué peuvent différer. Les indications de cohérence sont des règles textuelles limitées et non un jugement exhaustif sur la musique. Aucune génération ou écoute Suno n’est revendiquée.
+
 ## v1.8.0 — les deux champs Suno
 
 **37 contrôles navigateur et 10 tests Python réussis.** Les nouveaux essais couvrent la présence des deux champs et de leurs compteurs ; la modification de la description sans réécrire Lyrics ; la conservation de la description lors des modifications de structure et de l’application d’un point de départ ; la limite exacte de 1 000, le dépassement de 1 001 et les caractères Unicode ; le champ vide ; la copie indépendante et son refus simulé ; les états anciens et nouveaux.
