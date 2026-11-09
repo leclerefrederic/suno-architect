@@ -1,5 +1,9 @@
 # Versions
 
+## 1.11.4
+
+- Ajouter au menu de suite une surprise qui change entièrement de direction musicale.
+
 ## 1.11.3
 
 - Présenter la direction musicale et attendre le choix explicite du mode Suno avant le premier prompt.
