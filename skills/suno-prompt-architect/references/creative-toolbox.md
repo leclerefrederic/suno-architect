@@ -56,6 +56,6 @@ When asked for a series, define a short shared signature (genre/era, key instrum
 
 ## Lyrics only when wanted
 
-Use the requested theme, language and singer/voice preference. If a song with words is requested but no language is given, use the user's language rather than starting a new interview. In Advanced, deliver separate copyable Style and Lyrics fields, checked separately. Lyrics contains singable words and optionally concise section markers, not a second production essay. A sung song's Style must not retain 'instrumental/no vocals'.
+Use the requested theme, language and singer/voice preference. Write new lyrics in English by default. Use a different language only when the user explicitly requests it for the Suno text. Keep the surrounding conversation in its established language. In Advanced, deliver separate copyable Style and Lyrics fields, checked separately. Lyrics contains singable words and optionally concise section markers, not a second production essay. A sung song's Style must not retain 'instrumental/no vocals'.
 
 For a conversion from Simple with existing lyrics, preserve the supplied words unless asked to rewrite. If they exceed 5,000 characters, ask one menu to choose shortening or selecting an excerpt rather than silently discarding verses.

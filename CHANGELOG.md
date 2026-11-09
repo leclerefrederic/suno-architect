@@ -1,5 +1,9 @@
 # Versions
 
+## 1.11.1
+
+- Langue de conversation maintenue dans les réponses, descriptions et menus. Textes Suno en anglais par défaut, sauf demande explicite.
+
 ## 1.11.0
 
 - Retrait de la mini-app statique, de son code et des outils de publication associés.
