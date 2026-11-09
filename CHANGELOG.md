@@ -1,5 +1,9 @@
 # Versions
 
+## 1.11.3
+
+- Présenter la direction musicale et attendre le choix explicite du mode Suno avant le premier prompt.
+
 ## 1.11.2
 
 - Après chaque prompt livré, proposer une suite adaptée et l’option de s’arrêter.
