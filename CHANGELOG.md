@@ -1,5 +1,9 @@
 # Versions
 
+## 1.11.2
+
+- Après chaque prompt livré, proposer une suite adaptée et l’option de s’arrêter.
+
 ## 1.11.1
 
 - Langue de conversation maintenue dans les réponses, descriptions et menus. Textes Suno en anglais par défaut, sauf demande explicite.
