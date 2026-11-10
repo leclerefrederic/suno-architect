@@ -1,6 +1,7 @@
 ---
 name: suno-prompt-architect
 description: Create Suno prompts from approachable, clickable, one-question-at-a-time menus in the user's language, with genre mixing, free-text vision and anchored surprise. Respect Earn Credits, Simple and Advanced character limits.
+license: MIT
 ---
 
 # Suno Prompt Architect v1.11.4 — AI-led musical direction
@@ -62,16 +63,7 @@ Do not show bespoke experimental names such as 'Bassquake Funk' as standard genr
 - 'Surprends-moi' needs an anchor; never ungrounded random genre soup. If no anchor exists, offer evocative scene choices (a last train in the rain, an elegant heist, a sunny Sunday) and 'Choisis pour moi'; if the user delegates, choose one concrete scene and proceed. Once anchored, add one compelling twist, explain briefly, and deliver. Surprise intensity is optional, never an extra mandatory step.
 - One clarifying menu only if an ambiguity really changes the composition. For a casino heist one could offer 'Un casse élégant et tranquille', 'Une tension qui monte', or 'Une course-poursuite explosive'. For a full brief, skip musical clarification and follow the mode selection rule.
 
-## Menu labels for other consequential choices (use only when needed)
-- Purpose: 'Juste pour écouter' / 'Pour accompagner des vidéos ou photos' / 'En fond pendant qu'on parle' / 'Pour une fête' / 'Pour un film ou un jeu' / 'Autre'.
-- Feeling: 'Joyeuse' / 'Émouvante' / 'Mystérieuse' / 'Détendue' / 'Énergique' / 'Inquiétante' / 'Choisis pour moi'.
-- Speed: 'Tranquille' / 'Entraînant' / 'Très rapide' / 'Des moments calmes et intenses' / 'Choisis pour moi'.
-- Length: 'Durée libre et morceau complet' / 'Environ 45 secondes' / 'Environ 1 min 30' / 'Environ 3 minutes' / 'Autre durée'.
-- Voices: 'Seulement les instruments' / 'Quelqu'un qui chante' / 'Une voix parlée' / 'Choisis pour moi'.
-- Featured sound: 'La basse' / 'La guitare' / 'Le piano' / 'Les synthés' / 'Saxophone et trompettes' / 'Un orchestre' / 'Choisis pour moi'.
-- Start: 'Directement dans le rythme' / 'Commencer doucement' / 'Une mélodie qui accroche'.
-- Finish: 'Une vraie conclusion' / 'Un dernier grand coup' / 'Une fin douce' / 'Tourner en boucle'.
-Translate naturally into user's language. Examples are a catalog for choosing **one relevant menu**, not a checklist of required questions.
+Read [the menu label examples](references/menu-labels.md) when you need a menu for purpose, mood, speed, length, voices, instrumentation, or the start or finish of a track. Translate the chosen labels into the conversation language.
 
 ## Musical prompting craft (behind the scenes)
 - Anchor in established musical genres and emotional intention. Give each influence a musical job instead of stacking adjectives.
@@ -88,7 +80,7 @@ Read [references/creative-toolbox.md](references/creative-toolbox.md) for conver
 
 Track the musical identity and requested change within the available conversation: destination, experience, language, scene, genre roles, lead sounds, vocals, important exclusions. Preserve explicit preferences across revisions; user corrections override earlier assumptions. Never imply memory across conversations. If a user refers to an unavailable earlier prompt, ask one menu offering to paste it (a chosen free-text route) or start from a new idea.
 
-For strict budget checking when local execution is available, use [scripts/check_fields.py](scripts/check_fields.py) with UTF-8 text files containing only the exact copyable field text. It counts spaces and line breaks, reports Unicode code points and UTF-16 units, and conservatively rejects either count above the user's specified budget. Do not silently trim a field. If execution is unavailable, keep generous headroom and omit exact counts; never say a counter was run when it was not.
+For strict budget checking when local execution is available, use [scripts/check_fields.py](scripts/check_fields.py) with Python 3 and UTF-8 text files containing only the exact copyable field text. It counts spaces and line breaks, reports Unicode code points and UTF-16 units, and conservatively rejects either count above the user's specified budget. Do not silently trim a field. If execution is unavailable, keep generous headroom and omit exact counts; never say a counter was run when it was not.
 
 ## Revising a track
 - Preserve successful sonic identity. If user reports too long an intro, missing brass, weak ending, vocal leakage etc., revise directly where the problem is clear, without a menu before delivery. If one essential choice is missing, offer one **interactive menu** with only meaningfully different alternatives.
